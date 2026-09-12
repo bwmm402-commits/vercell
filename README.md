@@ -13,7 +13,7 @@ Bu proje Supabase kullanmaz.
 ## Admin
 Varsayılan ortam değişkenleri:
 - ADMIN_EMAIL=m53g@gmail.com
-- ADMIN_PASSWORD=m53g2026
+- ADMIN_PASSWORD=
 
 Üretimde ADMIN_PASSWORD'u güçlü bir değere değiştirmen önerilir.
 
