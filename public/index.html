@@ -1,52 +1,7932 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M53G — V8</title><style>
-:root{--bg:#030303;--panel:#0d0d12;--text:#fff;--muted:#888;--border:rgba(255,255,255,.12);--blue:#6c7cff;--purple:#a855f7;--cyan:#22d3ee;--green:#65ff91;--gold:#f59e0b;--red:#ff5d73}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(108,124,255,.14),transparent 28%),radial-gradient(circle at 90% 20%,rgba(168,85,247,.12),transparent 30%),var(--bg);color:var(--text);font-family:Arial,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.wrap{width:min(1180px,calc(100% - 30px));margin:auto}.nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);width:min(1160px,calc(100% - 20px));z-index:20;background:rgba(8,8,12,.88);backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:15px;padding:10px 12px}.navin{display:flex;align-items:center;gap:12px}.logo{font-weight:950;letter-spacing:3px;font-size:1.35rem;background:linear-gradient(135deg,#fff,var(--blue));-webkit-background-clip:text;color:transparent}.links{list-style:none;display:flex;gap:3px;flex:1;margin:0;padding:0}.links a{display:block;padding:8px 10px;color:#aaa;border-radius:999px;font-size:.8rem;font-weight:700}.links a:hover{color:#fff;background:rgba(255,255,255,.07)}.actions{display:flex;align-items:center;gap:7px}.btn{padding:11px 16px;border-radius:10px;border:1px solid transparent;font-weight:800}.p{background:#fff;color:#000}.s{background:rgba(255,255,255,.04);border-color:var(--border);color:#fff}.g{background:linear-gradient(135deg,var(--gold),#d97706);color:#000}.hero{min-height:90vh;display:grid;place-items:center;text-align:center;padding:140px 20px 80px}.hero h1{font-size:clamp(4rem,11vw,8rem);margin:18px 0 0;font-weight:950;line-height:.9;background:linear-gradient(135deg,#fff,#777,#fff);-webkit-background-clip:text;color:transparent}.hero p{max-width:700px;color:#999;font-size:1.1rem;margin:20px auto 28px}.heroBtns{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}.section{padding:90px 0}.head{text-align:center;margin-bottom:30px}.head .label{font-size:.7rem;letter-spacing:3px;color:var(--blue);font-weight:900}.head h2{font-size:clamp(2rem,5vw,3rem);margin:7px 0}.head p{color:#777}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.input,.select,.ta{width:100%;padding:11px 12px;background:#0b0b10;color:#fff;border:1px solid var(--border);border-radius:10px;outline:none}.toolbar .input{flex:1;min-width:210px}.project{min-height:250px;display:flex;flex-direction:column;justify-content:space-between}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.tag{display:inline-flex;padding:4px 7px;border:1px solid var(--border);border-radius:7px;font-size:.66rem;color:#aaa}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:40px}.stat{padding:18px;text-align:center;background:var(--panel)}.stat strong{display:block;font-size:1.5rem}.stat span{color:#777;font-size:.67rem}.rows{display:grid;gap:8px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);border-radius:10px}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.profileTop{display:flex;align-items:center;gap:12px}.avatar{width:62px;height:62px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--purple));font-weight:950}.xp{height:8px;background:#18181e;border-radius:99px;overflow:hidden;margin-top:8px}.xp span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple))}.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:15px;background:rgba(0,0,0,.86);backdrop-filter:blur(8px)}.modal.on{display:flex}.box{width:min(500px,100%);background:#0d0d13;border:1px solid var(--border);border-radius:16px;padding:22px}.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{background:none;border:0;color:#888;font-size:1.4rem}.form{display:grid;gap:9px}.notice{padding:12px;border-radius:10px;background:rgba(108,124,255,.07);border:1px solid rgba(108,124,255,.2);color:#aaa;font-size:.78rem;line-height:1.5}.toast{position:fixed;right:18px;bottom:18px;background:#fff;color:#000;padding:11px 15px;border-radius:10px;font-weight:800;opacity:0;transform:translateY(15px);transition:.2s;z-index:200}.toast.show{opacity:1;transform:none}.adminItem{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid rgba(255,255,255,.07);border-radius:11px;background:rgba(255,255,255,.025)}footer{padding:35px 20px;text-align:center;border-top:1px solid var(--border);color:#666;font-size:.78rem}@media(max-width:850px){.links{display:none;position:absolute;left:0;right:0;top:60px;flex-direction:column;background:#0b0b10;padding:8px;border:1px solid var(--border);border-radius:12px}.links.open{display:flex}.two{grid-template-columns:1fr}}@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}.hero h1{font-size:4rem}.heroBtns{flex-direction:column;align-items:center}.heroBtns .btn{width:min(300px,100%)}}
-</style></head><body>
-<nav class="nav"><div class="navin"><a class="logo" href="#top">M53G</a><ul class="links" id="links"><li><a href="#projects">Projeler</a></li><li><a href="#leaderboard">Liderlik</a></li><li><a href="#achievements">Başarımlar</a></li><li><a href="#community">Topluluk</a></li><li><a href="#profile">Profil</a></li><li id="adminLink" style="display:none"><a href="#admin">Admin</a></li></ul><div class="actions"><button class="btn s" id="menu">☰</button><button class="btn s" id="daily">🎁</button><button class="btn s" id="bell">🔔</button><button class="btn s" id="login">Giriş Yap</button><div id="account"></div></div></div></nav>
-<div id="notif" style="position:fixed;top:72px;right:18px;display:none;z-index:30;width:min(340px,calc(100% - 30px));background:#0d0d13;border:1px solid var(--border);border-radius:13px;padding:14px"></div>
-<header class="hero" id="top"><div><div class="notice" style="display:inline-block">● M53G PLATFORMU AKTİF</div><h1>M53G STUDIO</h1><p>Oyunlar, simülasyonlar, yazılım projeleri ve geliştirici topluluğu.</p><div class="heroBtns"><a class="btn p" href="#projects">PROJELERİ KEŞFET</a><a class="btn s" href="#community">TOPLULUK</a><button class="btn g" id="heroDaily">🎁 GÜNLÜK ÖDÜL</button></div></div></header>
-<section class="section" id="projects"><div class="wrap"><div class="head"><div class="label">M53G PROJECTS</div><h2>Projeler</h2><p>Güncel M53G oyunlarını ve yazılım projelerini keşfet.</p></div><div class="toolbar"><input class="input" id="search" placeholder="🔎 Proje ara..."><select class="select" id="filter"><option value="all">Tümü</option><option value="game">Oyun</option><option value="simulation">Simülasyon</option><option value="software">Yazılım</option></select><select class="select" id="sort"><option value="new">En yeni</option><option value="name">İsim A-Z</option><option value="rating">Puan</option></select></div><div class="grid" id="projectGrid"></div><div class="stats"><div class="stat"><strong id="sProjects">0</strong><span>PROJE</span></div><div class="stat"><strong id="sDownloads">0</strong><span>İNDİRME</span></div><div class="stat"><strong id="sUsers">0</strong><span>OYUNCU</span></div><div class="stat"><strong>V8</strong><span>M53G</span></div></div></div></section>
-<section class="section" id="leaderboard"><div class="wrap"><div class="head"><div class="label">RANKING</div><h2>Liderlik Tablosu</h2><p>En yüksek XP'ye sahip oyuncular.</p></div><div class="card"><div class="rows" id="leaders"></div></div></div></section>
-<section class="section" id="achievements"><div class="wrap"><div class="head"><div class="label">MISSIONS</div><h2>Başarımlar</h2><p>Aktif oldukça yeni başarımlar aç.</p></div><div class="grid" id="achievementsGrid"></div></div></section>
-<section class="section" id="community"><div class="wrap"><div class="head"><div class="label">COMMUNITY</div><h2>Topluluk</h2><p>Anketlere katıl ve admin duyurularını takip et.</p></div><div class="two"><div class="card"><h3>🗳️ Anket</h3><p class="small" id="pollQ"></p><div id="pollOptions"></div><div id="adminPollUI" style="display:none;margin-top:18px"><h4 style="color:var(--gold)">👑 Admin Anket</h4><div class="form"><input id="newPollQ" class="input" placeholder="Soru"><input id="newPollO" class="input" placeholder="Seçenek 1, Seçenek 2"><button class="btn g" id="publishPoll">YAYINLA</button></div></div></div><div class="card"><h3>📢 Duyuru</h3><div class="notice" id="announcement"></div><div id="adminAnnUI" style="display:none;margin-top:18px"><h4 style="color:var(--gold)">👑 Admin Mesajı</h4><div class="form"><textarea id="annInput" class="ta" placeholder="Topluluğa mesaj..."></textarea><button class="btn p" id="publishAnn">DUYURU YAYINLA</button></div></div></div></div></div></section>
-<section class="section" id="profile"><div class="wrap"><div class="head"><div class="label">PLAYER PROFILE</div><h2>Profil</h2></div><div id="profile"></div></div></section>
-<section class="section" id="admin"><div class="wrap"><div class="head"><div class="label">CONTROL PANEL</div><h2>Admin Paneli</h2><p>Proje ekle, düzenle, sil.</p></div><div id="admin"></div></div></section>
-<footer>© 2026 M53G Studio — Tüm Hakları Saklıdır.</footer>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
 
-<div class="modal" id="authModal"><div class="box"><div class="mhead"><h3>M53G Giriş</h3><button class="close" data-close="authModal">×</button></div><div class="form"><input id="authEmail" class="input" type="email" placeholder="E-posta"><input id="authPass" class="input" type="password" placeholder="Şifre"><button class="btn p" id="doLogin">GİRİŞ YAP</button><button class="btn s" id="openRegister">HESAP OLUŞTUR</button><button class="btn s" id="openForgot">ŞİFREMİ UNUTTUM</button></div></div></div>
-<div class="modal" id="registerModal"><div class="box"><div class="mhead"><h3>Yeni Hesap</h3><button class="close" data-close="registerModal">×</button></div><div class="form"><input id="regUser" class="input" placeholder="Kullanıcı adı"><input id="regEmail" class="input" type="email" placeholder="E-posta"><input id="regPass" class="input" type="password" placeholder="Şifre"><button class="btn p" id="doRegister">KAYIT OL</button></div></div></div>
-<div class="modal" id="forgotModal"><div class="box"><div class="mhead"><h3>Şifremi Unuttum</h3><button class="close" data-close="forgotModal">×</button></div><div class="form"><p class="small">Hesabındaki e-posta adresine sıfırlama bağlantısı gönderilir.</p><input id="forgotEmail" class="input" type="email" placeholder="E-posta"><button class="btn p" id="doForgot">SIFIRLAMA MAİLİ GÖNDER</button></div></div></div>
-<div class="modal" id="resetModal"><div class="box"><div class="mhead"><h3>Yeni Şifre</h3><button class="close" data-close="resetModal">×</button></div><div class="form"><input id="newPass" class="input" type="password" placeholder="Yeni şifre"><input id="newPass2" class="input" type="password" placeholder="Tekrar"><button class="btn p" id="doReset">ŞİFREYİ DEĞİŞTİR</button></div></div></div>
-<div class="modal" id="settingsModal"><div class="box"><div class="mhead"><h3>Profil Ayarları</h3><button class="close" data-close="settingsModal">×</button></div><div class="form"><input id="displayName" class="input" placeholder="Görünen ad"><select id="theme" class="select"><option value="dark">Dark</option><option value="cyber">Cyber</option><option value="matrix">Matrix</option></select><button class="btn p" id="saveSettings">KAYDET</button></div></div></div>
-<div class="toast" id="toast"></div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>M53G — Gaming & Development Platform</title>
+
+<meta
+    name="description"
+    content="M53G oyun, proje, topluluk ve geliştirici platformu."
+>
+
+<style>
+
+/* =========================================================
+   M53G V7
+   ========================================================= */
+
+:root{
+
+    --bg:#030303;
+    --bg-soft:#07070b;
+
+    --panel:#0d0d12;
+    --panel-2:#111118;
+
+    --text:#ffffff;
+    --muted:#888888;
+    --muted-2:#666666;
+
+    --border:
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
+
+    --border-soft:
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+    --blue:#6c7cff;
+    --purple:#a855f7;
+    --cyan:#22d3ee;
+
+    --green:#65ff91;
+    --red:#ff5d73;
+    --gold:#f59e0b;
+
+    --shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            .45
+        );
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(
+                108,
+                124,
+                255,
+                .14
+            ),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(
+                168,
+                85,
+                247,
+                .11
+            ),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(
+                34,
+                211,
+                238,
+                .07
+            ),
+            transparent 32%
+        ),
+
+        var(--bg);
+
+    color:
+        var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height:1.5;
+
+    overflow-x:hidden;
+
+}
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    opacity:.10;
+
+    background-image:
+
+        linear-gradient(
+            rgba(
+                255,
+                255,
+                255,
+                .03
+            ) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(
+                255,
+                255,
+                255,
+                .03
+            ) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        44px 44px;
+
+}
+
+
+button,
+input,
+textarea,
+select{
+
+    font:inherit;
+
+}
+
+
+button{
+
+    cursor:pointer;
+
+}
+
+
+button:disabled{
+
+    cursor:not-allowed;
+
+    opacity:.55;
+
+}
+
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+
+/* =========================================================
+   GENERIC
+   ========================================================= */
+
+.container{
+
+    width:
+        min(
+            1220px,
+            calc(
+                100% - 30px
+            )
+        );
+
+    margin:auto;
+
+}
+
+
+.small{
+
+    color:
+        var(--muted);
+
+    font-size:.78rem;
+
+}
+
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+.tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:
+        4px 8px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:7px;
+
+    color:#aaa;
+
+    font-size:.68rem;
+
+    font-weight:700;
+
+}
+
+
+.notice{
+
+    padding:
+        13px 14px;
+
+    border:
+        1px solid
+        rgba(
+            108,
+            124,
+            255,
+            .20
+        );
+
+    border-radius:11px;
+
+    background:
+        rgba(
+            108,
+            124,
+            255,
+            .07
+        );
+
+    color:#aaa;
+
+    font-size:.79rem;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:
+        11px 17px;
+
+    border:
+        1px solid
+        transparent;
+
+    border-radius:10px;
+
+    font-size:.83rem;
+
+    font-weight:800;
+
+    transition:
+        .20s ease;
+
+}
+
+
+.btn:hover{
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.btn-primary{
+
+    color:#000;
+
+    background:#fff;
+
+}
+
+
+.btn-primary:hover{
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            255,
+            255,
+            255,
+            .14
+        );
+
+}
+
+
+.btn-secondary{
+
+    color:#fff;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .045
+        );
+
+    border-color:
+        var(--border);
+
+}
+
+
+.btn-secondary:hover{
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .09
+        );
+
+}
+
+
+.btn-gold{
+
+    color:#000;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold),
+            #d97706
+        );
+
+}
+
+
+.btn-danger{
+
+    color:#ff9aaa;
+
+    background:
+        rgba(
+            255,
+            93,
+            115,
+            .09
+        );
+
+    border-color:
+        rgba(
+            255,
+            93,
+            115,
+            .22
+        );
+
+}
+
+
+.btn-success{
+
+    color:#000;
+
+    background:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar{
+
+    position:fixed;
+
+    top:12px;
+
+    left:50%;
+
+    transform:
+        translateX(
+            -50%
+        );
+
+    width:
+        min(
+            1200px,
+            calc(
+                100% - 20px
+            )
+        );
+
+    z-index:1000;
+
+    background:
+        rgba(
+            7,
+            7,
+            11,
+            .88
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    backdrop-filter:
+        blur(
+            20px
+        );
+
+    -webkit-backdrop-filter:
+        blur(
+            20px
+        );
+
+    border-radius:16px;
+
+    box-shadow:
+        0 10px 40px
+        rgba(
+            0,
+            0,
+            0,
+            .55
+        );
+
+}
+
+
+.nav-inner{
+
+    min-height:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        0 13px;
+
+}
+
+
+.logo{
+
+    font-size:1.4rem;
+
+    font-weight:950;
+
+    letter-spacing:3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            var(--blue)
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    -webkit-text-fill-color:
+        transparent;
+
+}
+
+
+.nav-links{
+
+    flex:1;
+
+    list-style:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:3px;
+
+}
+
+
+.nav-links a{
+
+    display:block;
+
+    padding:
+        8px 10px;
+
+    color:#999;
+
+    border-radius:999px;
+
+    font-size:.80rem;
+
+    font-weight:700;
+
+}
+
+
+.nav-links a:hover{
+
+    color:#fff;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+}
+
+
+.nav-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+}
+
+
+.icon-btn{
+
+    width:37px;
+
+    height:37px;
+
+    display:grid;
+
+    place-items:center;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .04
+        );
+
+    color:#fff;
+
+}
+
+
+.profile-chip{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        5px 9px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .05
+        );
+
+}
+
+
+.avatar{
+
+    width:30px;
+
+    height:30px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    font-size:.72rem;
+
+    font-weight:900;
+
+}
+
+
+.mobile-menu{
+
+    display:none;
+
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+
+    min-height:94vh;
+
+    display:grid;
+
+    place-items:center;
+
+    text-align:center;
+
+    padding:
+        145px 20px
+        80px;
+
+}
+
+
+.hero-content{
+
+    width:min(
+        900px,
+        100%
+    );
+
+}
+
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        7px 13px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:999px;
+
+    color:#aaa;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+
+    font-size:.74rem;
+
+    font-weight:700;
+
+}
+
+
+.hero-badge span{
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 12px
+        var(--green);
+
+}
+
+
+.hero h1{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(
+            3.8rem,
+            11vw,
+            8.4rem
+        );
+
+    line-height:.90;
+
+    font-weight:950;
+
+    letter-spacing:-3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff 20%,
+            #707070 58%,
+            #fff 90%
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+
+}
+
+
+.hero-description{
+
+    width:min(
+        700px,
+        100%
+    );
+
+    margin:
+        22px auto 30px;
+
+    color:#999;
+
+    font-size:
+        clamp(
+            1rem,
+            2vw,
+            1.14rem
+        );
+
+}
+
+
+.hero-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.section{
+
+    padding:
+        90px 0;
+
+}
+
+
+.section-head{
+
+    margin-bottom:35px;
+
+    text-align:center;
+
+}
+
+
+.section-label{
+
+    color:
+        var(--blue);
+
+    font-size:.70rem;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+}
+
+
+.section-head h2{
+
+    margin-top:7px;
+
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3rem
+        );
+
+    font-weight:950;
+
+}
+
+
+.section-head p{
+
+    margin-top:6px;
+
+    color:#777;
+
+    font-size:.88rem;
+
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.input,
+.select,
+.textarea{
+
+    width:100%;
+
+    padding:
+        11px 13px;
+
+    color:#fff;
+
+    background:
+        #0b0b10;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+}
+
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+
+    border-color:
+        var(--blue);
+
+}
+
+
+.textarea{
+
+    min-height:120px;
+
+    resize:vertical;
+
+}
+
+
+/* =========================================================
+   PROJECT TOOLBAR
+   ========================================================= */
+
+.toolbar{
+
+    display:flex;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:20px;
+
+}
+
+
+.toolbar .input{
+
+    flex:1;
+
+    min-width:210px;
+
+}
+
+
+/* =========================================================
+   PROJECT GRID
+   ========================================================= */
+
+.project-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(
+                300px,
+                1fr
+            )
+        );
+
+    gap:18px;
+
+}
+
+
+.project-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    min-height:285px;
+
+    padding:20px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:15px;
+
+    transition:.25s;
+
+}
+
+
+.project-card:hover{
+
+    transform:
+        translateY(
+            -4px
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .24
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.project-top{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.project-title{
+
+    margin-top:13px;
+
+    font-size:1.18rem;
+
+    font-weight:850;
+
+}
+
+
+.project-description{
+
+    margin-top:7px;
+
+    color:#888;
+
+    font-size:.85rem;
+
+    line-height:1.65;
+
+}
+
+
+.project-meta{
+
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+    margin-top:12px;
+
+}
+
+
+.project-footer{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:18px;
+
+    padding-top:14px;
+
+    border-top:
+        1px solid
+        var(--border-soft);
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            1fr
+        );
+
+    gap:1px;
+
+    margin-top:45px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:
+        var(--border);
+
+}
+
+
+.stat-card{
+
+    padding:20px;
+
+    text-align:center;
+
+    background:
+        var(--panel);
+
+}
+
+
+.stat-card strong{
+
+    display:block;
+
+    font-size:1.55rem;
+
+    font-weight:950;
+
+}
+
+
+.stat-card span{
+
+    color:#777;
+
+    font-size:.67rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =========================================================
+   LEADERBOARD
+   ========================================================= */
+
+.leaderboard{
+
+    display:grid;
+
+    gap:9px;
+
+}
+
+
+.leader-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:
+        13px 15px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    border-radius:11px;
+
+}
+
+
+.leader-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+.rank{
+
+    width:28px;
+
+    color:
+        var(--gold);
+
+    font-weight:950;
+
+}
+
+
+/* =========================================================
+   TWO COLUMNS
+   ========================================================= */
+
+.two-columns{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:18px;
+
+}
+
+
+.card{
+
+    padding:20px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:15px;
+
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:18px;
+
+}
+
+
+.profile-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+}
+
+
+.big-avatar{
+
+    width:65px;
+
+    height:65px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    font-size:1.1rem;
+
+    font-weight:950;
+
+}
+
+
+.profile-stat-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
+
+    margin-top:18px;
+
+}
+
+
+.mini-stat{
+
+    padding:13px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    border-radius:10px;
+
+}
+
+
+.mini-stat strong{
+
+    display:block;
+
+    font-size:1.1rem;
+
+}
+
+
+.mini-stat span{
+
+    color:#777;
+
+    font-size:.68rem;
+
+}
+
+
+.profile-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:
+        10px 0;
+
+    border-bottom:
+        1px solid
+        var(--border-soft);
+
+    color:#999;
+
+}
+
+
+.profile-row strong{
+
+    color:#fff;
+
+}
+
+
+.xp-bar{
+
+    height:8px;
+
+    margin-top:8px;
+
+    overflow:hidden;
+
+    background:
+        #19191f;
+
+    border-radius:99px;
+
+}
+
+
+.xp-bar span{
+
+    display:block;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--purple)
+        );
+
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+   ========================================================= */
+
+.achievement-card{
+
+    min-height:175px;
+
+}
+
+
+.achievement-icon{
+
+    font-size:2rem;
+
+    margin-bottom:8px;
+
+}
+
+
+.achievement-card.locked{
+
+    opacity:.48;
+
+}
+
+
+/* =========================================================
+   POLL
+   ========================================================= */
+
+.poll-option{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:
+        11px 13px;
+
+    margin-top:8px;
+
+    color:#fff;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .035
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+}
+
+
+.poll-option:hover:not(:disabled){
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+
+}
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+.admin-form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap:10px;
+
+}
+
+
+.admin-form-full{
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+.admin-project-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:14px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    border-radius:12px;
+
+}
+
+
+.admin-project-info{
+
+    min-width:0;
+
+}
+
+
+.admin-project-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.admin-project-desc{
+
+    margin-top:5px;
+
+    color:#777;
+
+    font-size:.77rem;
+
+}
+
+
+.admin-project-actions{
+
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+    justify-content:flex-end;
+
+}
+
+
+/* =========================================================
+   MODALS & FORMS
+   ========================================================= */
+
+.form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:3000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:15px;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .86
+        );
+
+    backdrop-filter:
+        blur(
+            8px
+        );
+
+}
+
+
+.modal.active{
+
+    display:flex;
+
+}
+
+
+.modal-box{
+
+    width:
+        min(
+            510px,
+            100%
+        );
+
+    max-height:
+        calc(
+            100vh - 30px
+        );
+
+    overflow-y:auto;
+
+    padding:24px;
+
+    background:
+        #0d0d13;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.modal-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:17px;
+
+}
+
+
+.modal-close{
+
+    width:35px;
+
+    height:35px;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .04
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:99px;
+
+    color:#999;
+
+    font-size:1.2rem;
+
+}
+
+
+.modal-close:hover{
+
+    color:#fff;
+
+}
+
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.popover{
+
+    position:fixed;
+
+    top:72px;
+
+    right:20px;
+
+    z-index:2200;
+
+    width:
+        min(
+            350px,
+            calc(
+                100% - 30px
+            )
+        );
+
+    display:none;
+
+    padding:14px;
+
+    background:
+        #0d0d13;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:14px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.popover.show{
+
+    display:block;
+
+}
+
+
+.notification-item{
+
+    padding:
+        9px 0;
+
+    color:#aaa;
+
+    border-bottom:
+        1px solid
+        var(--border-soft);
+
+    font-size:.78rem;
+
+}
+
+
+.notification-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:20px;
+
+    z-index:5000;
+
+    max-width:
+        min(
+            400px,
+            calc(
+                100% - 40px
+            )
+        );
+
+    padding:
+        12px 17px;
+
+    background:#fff;
+
+    color:#000;
+
+    border-radius:10px;
+
+    font-size:.82rem;
+
+    font-weight:850;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transform:
+        translateY(
+            16px
+        );
+
+    transition:.25s;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translateY(
+            0
+        );
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+
+    padding:
+        40px 20px;
+
+    text-align:center;
+
+    color:#666;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    font-size:.78rem;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+
+        display:none;
+
+        position:absolute;
+
+        top:62px;
+
+        left:0;
+
+        right:0;
+
+        flex-direction:column;
+
+        padding:9px;
+
+        background:
+            #0b0b10;
+
+        border:
+            1px solid
+            var(--border);
+
+        border-radius:12px;
+
+    }
+
+
+    .nav-links.open{
+
+        display:flex;
+
+    }
+
+
+    .mobile-menu{
+
+        display:grid;
+
+    }
+
+
+    .two-columns,
+    .profile-layout{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .hero h1{
+
+        font-size:
+            4rem;
+
+    }
+
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+
+    .hero-buttons .btn{
+
+        width:
+            min(
+                310px,
+                100%
+            );
+
+    }
+
+
+    .project-grid{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .stats-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .admin-form-grid{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .admin-form-full{
+
+        grid-column:
+            auto;
+
+    }
+
+
+    .admin-project-item{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .admin-project-actions{
+
+        justify-content:flex-start;
+
+    }
+
+
+    .leader-row{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+<div class="nav-inner">
+
+
+<a
+    href="#hero"
+    class="logo"
+>
+M53G
+</a>
+
+
+<ul
+    class="nav-links"
+    id="navLinks"
+>
+
+<li>
+<a href="#hero">
+Ana Sayfa
+</a>
+</li>
+
+<li>
+<a href="#projects">
+Projeler
+</a>
+</li>
+
+<li>
+<a href="#leaderboard">
+Liderlik
+</a>
+</li>
+
+<li>
+<a href="#achievements">
+Başarımlar
+</a>
+</li>
+
+<li>
+<a href="#community">
+Topluluk
+</a>
+</li>
+
+<li>
+<a href="#profile">
+Profil
+</a>
+</li>
+
+<li
+    id="adminNav"
+    style="display:none"
+>
+<a href="#admin">
+Admin
+</a>
+</li>
+
+</ul>
+
+
+<div class="nav-actions">
+
+
+<button
+    class="icon-btn mobile-menu"
+    id="menuButton"
+    title="Menü"
+>
+☰
+</button>
+
+
+<button
+    class="icon-btn"
+    id="notifyButton"
+    title="Bildirimler"
+>
+🔔
+</button>
+
+
+<button
+    class="icon-btn"
+    id="dailyButton"
+    title="Günlük ödül"
+>
+🎁
+</button>
+
+
+<button
+    class="btn btn-secondary"
+    id="loginButton"
+>
+Giriş Yap
+</button>
+
+
+<div
+    id="accountArea"
+></div>
+
+
+</div>
+
+
+</div>
+
+</nav>
+
+
+<!-- =========================================================
+     NOTIFICATION POPOVER
+========================================================= -->
+
+<div
+    class="popover"
+    id="notificationPop"
+>
+
+<div
+    style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center
+    "
+>
+
+<strong>
+Bildirimler
+</strong>
+
+
+<button
+    class="modal-close"
+    style="
+        width:30px;
+        height:30px;
+        font-size:1rem
+    "
+    id="closeNotification"
+>
+×
+</button>
+
+</div>
+
+
+<div
+    id="notificationList"
+    style="
+        margin-top:8px
+    "
+></div>
+
+</div>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    id="hero"
+    class="hero"
+>
+
+<div class="hero-content">
+
+
+<div class="hero-badge">
+
+<span></span>
+
+M53G DEVELOPMENT PLATFORM
+
+</div>
+
+
+<h1>
+M53G STUDIO
+</h1>
+
+
+<p
+    class="hero-description"
+>
+Oyunlar, simülasyonlar,
+yazılım projeleri ve
+geliştirici topluluğu.
+</p>
+
+
+<div class="hero-buttons">
+
+
+<a
+    href="#projects"
+    class="btn btn-primary"
+>
+PROJELERİ KEŞFET
+</a>
+
+
+<a
+    href="#community"
+    class="btn btn-secondary"
+>
+TOPLULUK
+</a>
+
+
+<button
+    class="btn btn-gold"
+    onclick="
+        claimDailyReward()
+    "
+>
+🎁 GÜNLÜK ÖDÜL
+</button>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section
+    id="projects"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+M53G PROJECTS
+</div>
+
+<h2>
+Projeler
+</h2>
+
+<p>
+M53G'nin güncel oyunlarını ve yazılım projelerini keşfet.
+</p>
+
+</div>
+
+
+<div class="toolbar">
+
+
+<input
+    id="projectSearch"
+    class="input"
+    placeholder="🔎 Proje, motor veya açıklama ara..."
+>
+
+
+<select
+    id="projectFilter"
+    class="select"
+>
+
+<option value="all">
+Tüm Kategoriler
+</option>
+
+<option value="game">
+🎮 Oyun
+</option>
+
+<option value="simulation">
+🏭 Simülasyon
+</option>
+
+<option value="software">
+💻 Yazılım
+</option>
+
+</select>
+
+
+<select
+    id="projectSort"
+    class="select"
+>
+
+<option value="new">
+En Yeniler
+</option>
+
+<option value="name">
+İsim A-Z
+</option>
+
+<option value="rating">
+Puan
+</option>
+
+<option value="downloads">
+İndirme
+</option>
+
+</select>
+
+
+</div>
+
+
+<div
+    id="projectsGrid"
+    class="project-grid"
+></div>
+
+
+<div class="stats-grid">
+
+
+<div class="stat-card">
+
+<strong
+    id="statProjects"
+>
+0
+</strong>
+
+<span>
+Toplam Proje
+</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<strong
+    id="statDownloads"
+>
+0
+</strong>
+
+<span>
+Toplam İndirme
+</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<strong
+    id="statUsers"
+>
+0
+</strong>
+
+<span>
+Oyuncu
+</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<strong>
+V7
+</strong>
+
+<span>
+M53G Sürümü
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     LEADERBOARD
+========================================================= -->
+
+<section
+    id="leaderboard"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+RANKING
+</div>
+
+<h2>
+Liderlik Tablosu
+</h2>
+
+<p>
+M53G'deki en yüksek XP'ye sahip oyuncular.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div
+    class="leaderboard"
+    id="leaderboardList"
+></div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ACHIEVEMENTS
+========================================================= -->
+
+<section
+    id="achievements"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+MISSIONS
+</div>
+
+<h2>
+Başarımlar
+</h2>
+
+<p>
+M53G'de aktif olarak yeni başarımlar aç.
+</p>
+
+</div>
+
+
+<div
+    id="achievementGrid"
+    class="project-grid"
+></div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     COMMUNITY
+========================================================= -->
+
+<section
+    id="community"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+COMMUNITY
+</div>
+
+<h2>
+Topluluk Merkezi
+</h2>
+
+<p>
+Anketlere katıl ve M53G duyurularını takip et.
+</p>
+
+</div>
+
+
+<div
+    class="two-columns"
+>
+
+
+<!-- POLL -->
+
+<div class="card">
+
+
+<h3>
+🗳️ Topluluk Anketi
+</h3>
+
+
+<p
+    class="small"
+    id="pollQuestion"
+    style="
+        margin-top:7px
+    "
+>
+</p>
+
+
+<div
+    id="pollOptions"
+    style="
+        margin-top:10px
+    "
+></div>
+
+
+<div
+    id="adminPollBox"
+    style="
+        display:none;
+        margin-top:18px;
+        padding-top:18px;
+        border-top:
+            1px solid
+            var(--border)
+    "
+>
+
+
+<h4
+    style="
+        color:var(--gold);
+        margin-bottom:10px
+    "
+>
+👑 Admin — Yeni Anket
+</h4>
+
+
+<div class="form">
+
+
+<input
+    id="newPollQuestion"
+    class="input"
+    placeholder="Anket sorusu"
+>
+
+
+<input
+    id="newPollOptions"
+    class="input"
+    placeholder="Seçenek 1, Seçenek 2, Seçenek 3"
+>
+
+
+<button
+    class="
+        btn
+        btn-gold
+    "
+    id="publishPollButton"
+>
+ANKETİ YAYINLA
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- ANNOUNCEMENT -->
+
+<div class="card">
+
+
+<h3>
+📢 M53G Duyuruları
+</h3>
+
+
+<div
+    id="announcementBox"
+    class="notice"
+    style="
+        margin-top:12px
+    "
+></div>
+
+
+<div
+    id="adminAnnouncementBox"
+    style="
+        display:none;
+        margin-top:18px;
+        padding-top:18px;
+        border-top:
+            1px solid
+            var(--border)
+    "
+>
+
+
+<h4
+    style="
+        color:var(--gold);
+        margin-bottom:10px
+    "
+>
+👑 Admin — Duyuru Yayınla
+</h4>
+
+
+<div class="form">
+
+
+<textarea
+    id="announcementInput"
+    class="textarea"
+    placeholder="Topluluğa mesaj yaz..."
+></textarea>
+
+
+<button
+    class="
+        btn
+        btn-primary
+    "
+    id="publishAnnouncementButton"
+>
+DUYURU YAYINLA
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROFILE
+========================================================= -->
+
+<section
+    id="profile"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+PLAYER PROFILE
+</div>
+
+<h2>
+Oyuncu Profili
+</h2>
+
+<p>
+Hesabını ve ilerlemeni yönet.
+</p>
+
+</div>
+
+
+<div
+    id="profileContent"
+></div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ADMIN
+========================================================= -->
+
+<section
+    id="admin"
+    class="section"
+>
+
+<div class="container">
+
+
+<div class="section-head">
+
+<div class="section-label">
+CONTROL PANEL
+</div>
+
+<h2>
+Admin Paneli
+</h2>
+
+<p>
+Oyunları ve M53G içeriklerini yönet.
+</p>
+
+</div>
+
+
+<div
+    id="adminContent"
+></div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+© 2026
+<strong>
+M53G Studio
+</strong>
+
+— Tüm Hakları Saklıdır.
+
+</footer>
+
+
+<!-- =========================================================
+     LOGIN MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="loginModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+M53G Giriş
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'loginModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="form">
+
+
+<input
+    id="loginEmail"
+    class="input"
+    type="email"
+    placeholder="E-posta"
+    autocomplete="email"
+>
+
+
+<input
+    id="loginPassword"
+    class="input"
+    type="password"
+    placeholder="Şifre"
+    autocomplete="current-password"
+>
+
+
+<button
+    class="btn btn-primary"
+    id="loginSubmit"
+>
+GİRİŞ YAP
+</button>
+
+
+<button
+    class="btn btn-secondary"
+    onclick="
+        closeModal(
+            'loginModal'
+        );
+
+        openModal(
+            'registerModal'
+        );
+    "
+>
+YENİ HESAP OLUŞTUR
+</button>
+
+
+<button
+    class="btn btn-secondary"
+    onclick="
+        closeModal(
+            'loginModal'
+        );
+
+        openModal(
+            'forgotModal'
+        );
+    "
+>
+ŞİFREMİ UNUTTUM
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     REGISTER MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="registerModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+Yeni Hesap
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'registerModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="form">
+
+
+<input
+    id="registerUsername"
+    class="input"
+    placeholder="Kullanıcı adı"
+    maxlength="24"
+>
+
+
+<input
+    id="registerEmail"
+    class="input"
+    type="email"
+    placeholder="E-posta"
+>
+
+
+<input
+    id="registerPassword"
+    class="input"
+    type="password"
+    placeholder="Şifre"
+>
+
+
+<button
+    class="btn btn-primary"
+    id="registerSubmit"
+>
+HESAP OLUŞTUR
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     FORGOT MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="forgotModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+Şifremi Unuttum
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'forgotModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="form">
+
+
+<p class="small">
+
+Kayıt olduğun e-posta adresini
+girerek şifre sıfırlama isteği
+oluşturabilirsin.
+
+</p>
+
+
+<input
+    id="forgotEmail"
+    class="input"
+    type="email"
+    placeholder="E-posta"
+>
+
+
+<button
+    class="btn btn-primary"
+    id="forgotSubmit"
+>
+SIFIRLAMA İSTEĞİ OLUŞTUR
+</button>
+
+
+<button
+    class="btn btn-secondary"
+    onclick="
+        closeModal(
+            'forgotModal'
+        );
+
+        openModal(
+            'loginModal'
+        );
+    "
+>
+GİRİŞE DÖN
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     RESET INFO MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="resetInfoModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+Şifre Sıfırlama
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'resetInfoModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="notice">
+
+Tek dosyalık sürümde gerçek
+e-posta gönderim servisi bulunmaz.
+
+Buradaki ekran sıfırlama işleminin
+kullanıcı arayüzünü gösterir.
+
+</div>
+
+
+<button
+    class="btn btn-primary"
+    style="
+        width:100%;
+        margin-top:12px
+    "
+    onclick="
+        closeModal(
+            'resetInfoModal'
+        )
+    "
+>
+TAMAM
+</button>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     SETTINGS MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="settingsModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+Profil Ayarları
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'settingsModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="form">
+
+
+<input
+    id="settingsName"
+    class="input"
+    placeholder="Görünen ad"
+    maxlength="40"
+>
+
+
+<select
+    id="settingsTheme"
+    class="select"
+>
+
+<option value="dark">
+M53G Dark
+</option>
+
+<option value="cyber">
+Cyber
+</option>
+
+<option value="matrix">
+Matrix
+</option>
+
+</select>
+
+
+<button
+    class="btn btn-primary"
+    id="settingsSaveButton"
+>
+KAYDET
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
 <script>
-const state={user:null,projects:[],leaders:[],stats:{downloads:0,users:0},poll:null,announcement:null};
-const $=id=>document.getElementById(id);function toast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window.t);window.t=setTimeout(()=>$('toast').classList.remove('show'),2600)}function open(id){$(id).classList.add('on')}function close(id){$(id).classList.remove('on')}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}function initials(v){return (v||'M53G').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()}function admin(){return state.user&&state.user.email.toLowerCase()==='m53g@gmail.com'}
-async function api(path,opt={}){const r=await fetch(path,{credentials:'include',headers:{'Content-Type':'application/json',...(opt.headers||{})},...opt});let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.error||'İstek başarısız.');return d}
-async function load(){try{state.user=(await api('/api/auth/me')).user}catch{}try{const d=await api('/api/projects');state.projects=d.projects;state.stats=d.stats}catch(e){toast(e.message)}try{state.leaders=(await api('/api/leaderboard')).users}catch{}try{state.poll=(await api('/api/poll')).poll}catch{}try{state.announcement=(await api('/api/announcement')).announcement}catch{}render()}
-function render(){renderAccount();renderProjects();renderLeaders();renderAchievements();renderPoll();renderAnnouncement();renderProfile();renderAdmin();}
-function renderAccount(){if(!state.user){$('login').style.display='inline-flex';$('account').innerHTML='';return}$('login').style.display='none';$('account').innerHTML='<div class="profile-chip" style="cursor:pointer;display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--border);border-radius:10px" onclick="location.hash=\'profile\'"><div class="avatar" style="width:30px;height:30px">'+initials(state.user.displayName)+'</div><span style="font-size:.75rem;font-weight:800">'+esc(state.user.displayName)+'</span></div>';}
-function renderProjects(){let q=$('search').value.toLowerCase().trim(),f=$('filter').value,s=$('sort').value;let arr=state.projects.filter(p=>(f==='all'||p.category===f)&&(p.name+' '+p.desc+' '+p.engine).toLowerCase().includes(q));if(s==='name')arr.sort((a,b)=>a.name.localeCompare(b.name));if(s==='rating')arr.sort((a,b)=>b.rating-a.rating);$('projectGrid').innerHTML=arr.map(p=>'<div class="card project"><div><div style="display:flex;justify-content:space-between"><span class="tag">'+esc(p.engine)+'</span><strong style="color:var(--gold)">★ '+Number(p.rating||5).toFixed(1)+'</strong></div><h3>'+esc(p.name)+'</h3><p class="small" style="line-height:1.6">'+esc(p.desc)+'</p><div class="meta"><span class="tag">'+esc(p.category)+'</span><span class="tag">v'+esc(p.version||'1.0')+'</span><span class="tag">📥 '+(p.downloads||0)+'</span></div></div><div>'+ (p.file?'<a class="btn p" style="display:block;text-align:center;width:100%;margin-top:15px" href="'+esc(p.file)+'" download onclick="downloadProject(\''+esc(p.id)+'\')">📥 İNDİR</a>':'<button class="btn s" style="width:100%;margin-top:15px" disabled>🔧 GELİŞTİRİLİYOR</button>')+'</div></div>').join('');$('sProjects').textContent=state.projects.length;$('sDownloads').textContent=state.stats.downloads;$('sUsers').textContent=state.stats.users;}
-async function downloadProject(id){try{const d=await api('/api/projects/'+encodeURIComponent(id)+'/download',{method:'POST'});state.user=d.user||state.user;state.stats=d.stats||state.stats;await load();if(state.user)toast('+20 XP +10 Coin 🚀')}catch(e){toast(e.message)}}
-function renderLeaders(){$('leaders').innerHTML=state.leaders.length?state.leaders.map((u,i)=>'<div class="row"><div><span style="color:var(--gold);font-weight:900">'+(i+1)+'.</span> <strong>'+esc(u.displayName||u.username)+'</strong></div><div><span style="color:var(--cyan);margin-right:10px">⚡ '+u.xp+'</span><span style="color:var(--gold)">🪙 '+u.coins+'</span></div></div>').join(''):'<div class="notice">Henüz oyuncu yok.</div>'}
-function renderAchievements(){const d=Number(state.user?.downloads||0),x=Number(state.user?.xp||0);const arr=[['🚀','İlk Adım','Hesap oluştur.',!!state.user],['✅','Doğrulanmış','E-posta doğrulamasını tamamla.',!!state.user?.verified],['📥','Proje Avcısı','1 proje indir.',d>=1],['🎮','Aktif Oyuncu','3 proje indir.',d>=3],['🔥','M53G Fanı','5 proje indir.',d>=5],['👑','Elite Developer','2500 XP kazan.',x>=2500]];$('achievementsGrid').innerHTML=arr.map(a=>'<div class="card" style="opacity:'+(a[3]?1:.48)+'"><div style="font-size:2rem">'+a[0]+'</div><h3>'+a[1]+'</h3><p class="small">'+a[2]+'</p><strong style="color:'+(a[3]?'var(--green)':'#777')+'">'+(a[3]?'✓ AÇILDI':'🔒 KİLİTLİ')+'</strong></div>').join('')}
-function renderPoll(){if(!state.poll)return;$('pollQ').textContent=state.poll.question;const total=(state.poll.options||[]).reduce((a,b)=>a+Number(b.votes||0),0)||1;const voted=state.user&&state.poll.voters?.[state.user.id];$('pollOptions').innerHTML=(state.poll.options||[]).map((o,i)=>'<button class="poll-option" style="width:100%;display:flex;justify-content:space-between;padding:11px;margin-top:8px;background:rgba(255,255,255,.04);color:#fff;border:1px solid var(--border);border-radius:10px" '+(voted?'disabled':'')+' onclick="vote('+i+')"><span>'+esc(o.text)+'</span><strong style="color:var(--blue)">'+Math.round(Number(o.votes||0)/total*100)+'%</strong></button>').join('');$('adminPollUI').style.display=admin()?'block':'none'}
-async function vote(i){if(!state.user){open('authModal');return}try{const d=await api('/api/poll-vote',{method:'POST',body:JSON.stringify({option:i})});state.poll=d.poll;renderPoll();toast('Oyun kaydedildi 🗳️')}catch(e){toast(e.message)}}
-function renderAnnouncement(){if(!state.announcement)return;$('announcement').innerHTML='<strong>'+esc(state.announcement.author)+'</strong><div style="margin-top:7px">'+esc(state.announcement.text)+'</div><div class="small" style="margin-top:7px">'+new Date(state.announcement.createdAt).toLocaleString('tr-TR')+'</div>';$('adminAnnUI').style.display=admin()?'block':'none'}
-async function renderProfile(){const p=$('profile');if(!state.user){p.innerHTML='<div class="card" style="text-align:center;padding:40px"><h3>Profil için giriş yap.</h3><button class="btn p" style="margin-top:12px" onclick="open(\'authModal\')">GİRİŞ YAP</button></div>';return}const level=Math.floor((state.user.xp||0)/250)+1,cur=(state.user.xp||0)%250,pr=Math.min(100,cur/250*100);p.innerHTML='<div class="two"><div class="card"><div class="profileTop"><div class="avatar">'+initials(state.user.displayName)+'</div><div><h3>'+esc(state.user.displayName)+'</h3><div class="small">@'+esc(state.user.username)+'</div></div></div><div class="small" style="margin-top:16px">SEVİYE '+level+' · '+cur+'/250 XP</div><div class="xp"><span style="width:'+pr+'%"></span></div><div class="rows" style="margin-top:14px"><div class="row"><span>⚡ XP</span><strong>'+state.user.xp+'</strong></div><div class="row"><span>🪙 Coin</span><strong>'+state.user.coins+'</strong></div><div class="row"><span>📥 İndirme</span><strong>'+state.user.downloads+'</strong></div><div class="row"><span>📧 E-posta</span><strong style="font-size:.75rem">'+esc(state.user.email)+'</strong></div></div><button class="btn s" style="width:100%;margin-top:14px" onclick="openSettings()">⚙️ AYARLAR</button><button class="btn" style="width:100%;margin-top:8px;background:rgba(255,93,115,.1);color:#ff9aaa;border:1px solid rgba(255,93,115,.2)" onclick="logout()">ÇIKIŞ</button></div><div class="card"><h3>📈 Hesap</h3><div class="notice" style="margin-top:12px">'+(state.user.verified?'✅ E-posta doğrulandı.':'📧 E-posta doğrulaması bekleniyor.')+'</div><div class="notice" style="margin-top:10px">'+(admin()?'👑 Admin yetkisi aktif.':'🎮 Oyuncu hesabı aktif.')+'</div></div></div>}
-function renderAdmin(){const box=$('admin');if(!admin()){ $('adminLink').style.display='none';box.innerHTML='<div class="card" style="text-align:center;padding:40px"><h3>🔒 Admin erişimi gerekli.</h3></div>';return}$('adminLink').style.display='block';box.innerHTML='<div class="card"><h3>➕ Yeni Oyun / Proje</h3><div class="form" style="margin-top:12px"><input id="apName" class="input" placeholder="Proje adı"><textarea id="apDesc" class="ta" placeholder="Açıklama"></textarea><div class="two"><input id="apEngine" class="input" placeholder="Motor / Platform"><select id="apCat" class="select"><option value="game">Oyun</option><option value="simulation">Simülasyon</option><option value="software">Yazılım</option></select></div><div class="two"><input id="apVersion" class="input" value="1.0" placeholder="Versiyon"><input id="apRating" class="input" type="number" min="0" max="5" step=".1" value="5" placeholder="Puan"></div><input id="apFile" class="input" placeholder="downloads/oyun.zip"><button class="btn p" onclick="addAdminProject()">🚀 PROJEYİ EKLE</button></div></div><div class="card" style="margin-top:16px"><h3>📦 Projeler</h3><div class="rows" style="margin-top:12px">'+state.projects.map(p=>'<div class="adminItem"><div><strong>'+esc(p.name)+'</strong><div class="small">'+esc(p.engine)+' · '+esc(p.category)+' · ⭐ '+Number(p.rating||0).toFixed(1)+'</div></div><div style="display:flex;gap:6px"><button class="btn s" onclick="editAdminProject(\''+esc(p.id)+'\')">✏️</button><button class="btn" style="background:rgba(255,93,115,.1);color:#ff9aaa;border:1px solid rgba(255,93,115,.2)" onclick="deleteAdminProject(\''+esc(p.id)+'\')">🗑️</button></div></div>').join('')+'</div></div>'}
-async function addAdminProject(){try{const d=await api('/api/admin/projects',{method:'POST',body:JSON.stringify({name:$('apName').value,description:$('apDesc').value,engine:$('apEngine').value,category:$('apCat').value,version:$('apVersion').value,rating:Number($('apRating').value),file:$('apFile').value})});toast('Proje eklendi ✅');await load()}catch(e){toast(e.message)}}
-async function deleteAdminProject(id){if(!confirm('Bu projeyi silmek istiyor musun?'))return;try{await api('/api/admin/projects?id='+encodeURIComponent(id),{method:'DELETE'});toast('Proje silindi 🗑️');await load()}catch(e){toast(e.message)}}
-async function editAdminProject(id){const p=state.projects.find(x=>x.id===id);if(!p)return;const name=prompt('Proje adı:',p.name);if(name===null)return;const description=prompt('Açıklama:',p.desc);if(description===null)return;const engine=prompt('Motor:',p.engine);if(engine===null)return;const version=prompt('Versiyon:',p.version||'1.0');if(version===null)return;const rating=Number(prompt('Puan 0-5:',p.rating));if(!Number.isFinite(rating)||rating<0||rating>5){toast('Geçersiz puan');return}const file=prompt('ZIP yolu:',p.file||'');if(file===null)return;try{await api('/api/admin/project-update',{method:'PUT',body:JSON.stringify({id,name,description,engine,version,rating,file,category:p.category})});toast('Proje güncellendi ✅');await load()}catch(e){toast(e.message)}}
-async function login(){try{state.user=(await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:$('authEmail').value,password:$('authPass').value})})).user;close('authModal');await load();toast('Giriş başarılı 👋')}catch(e){toast(e.message)}}
-async function register(){try{state.user=(await api('/api/auth/register',{method:'POST',body:JSON.stringify({username:$('regUser').value,email:$('regEmail').value,password:$('regPass').value})})).user;close('registerModal');await load();toast('Hesap oluşturuldu. Doğrulama mailini kontrol et 📧')}catch(e){toast(e.message)}}
-async function forgot(){try{await api('/api/auth/forgot-password',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value})});close('forgotModal');toast('Sıfırlama maili gönderildi 📧')}catch(e){toast(e.message)}}
-async function resetPassword(){const token=new URLSearchParams(location.search).get('reset');if(!token)return toast('Sıfırlama bağlantısı yok.');if($('newPass').value!==$('newPass2').value)return toast('Şifreler eşleşmiyor.');try{state.user=(await api('/api/auth/reset-password',{method:'POST',body:JSON.stringify({token,password:$('newPass').value})})).user;history.replaceState({},'',location.pathname);close('resetModal');await load();toast('Şifre güncellendi ✅')}catch(e){toast(e.message)}}
-async function logout(){await api('/api/auth/logout',{method:'POST'});state.user=null;await load();toast('Çıkış yapıldı.')}
-function openSettings(){$('displayName').value=state.user?.displayName||'';$('theme').value=state.user?.theme||'dark';open('settingsModal')}
-async function saveSettings(){try{state.user=(await api('/api/profile',{method:'POST',body:JSON.stringify({displayName:$('displayName').value,theme:$('theme').value})})).user;document.body.dataset.theme=$('theme').value;close('settingsModal');render();toast('Kaydedildi ✅')}catch(e){toast(e.message)}}
+  // JSONBin'den aldığın bilgileri buraya yaz
+  const BIN_ID = '6aa4efffffd5d16053fd1454'; 
+  const MASTER_KEY = '$2a$10$/DOw4WZ8pZ7SlmZtSiwAN.NIeaiIL.mrhzRPEhT41xUURTbDmig96';
 
-$('login').onclick=()=>state.user?location.hash='profile':open('authModal');$('doLogin').onclick=login;$('openRegister').onclick=()=>{close('authModal');open('registerModal')};$('openForgot').onclick=()=>{close('authModal');open('forgotModal')};$('doRegister').onclick=register;$('doForgot').onclick=forgot;$('doReset').onclick=resetPassword;$('saveSettings').onclick=saveSettings;$('daily').onclick=claimDaily;$('heroDaily').onclick=claimDaily;$('search').oninput=renderProjects;$('filter').onchange=renderProjects;$('sort').onchange=renderProjects;$('menu').onclick=()=>$('links').classList.toggle('open');$('bell').onclick=()=>$('notif').style.display=$('notif').style.display==='block'?'none':'block';document.querySelectorAll('[data-close]').forEach(x=>x.onclick=()=>close(x.dataset.close));document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')}));$('publishPoll').onclick=async()=>{try{const d=await api('/api/admin/poll',{method:'POST',body:JSON.stringify({question:$('newPollQ').value,options:$('newPollO').value.split(',').map(x=>x.trim()).filter(Boolean)})});state.poll=d.poll;renderPoll();toast('Anket yayınlandı 👑')}catch(e){toast(e.message)}};$('publishAnn').onclick=async()=>{try{const d=await api('/api/admin/announcement',{method:'POST',body:JSON.stringify({text:$('annInput').value})});state.announcement=d.announcement;renderAnnouncement();$('annInput').value='';toast('Duyuru yayınlandı 👑')}catch(e){toast(e.message)}};
-async function claimDaily(){if(!state.user){open('authModal');return}try{const d=await api('/api/reward/daily',{method:'POST'});state.user=d.user;render();toast(d.message)}catch(e){toast(e.message)}}
-$('notif').innerHTML='<div class="notification-item">M53G V8 aktif.</div><div class="notification-item">Admin proje yönetimi hazır.</div><div class="notification-item">Şifre sıfırlama sistemi hazır.</div>';
-if(new URLSearchParams(location.search).get('reset'))open('resetModal');load();
-</script></body></html>
+  // Sayfa açıldığında verileri JSONBin'den çeker
+  async function loadGlobalData() {
+    try {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': MASTER_KEY }
+      });
+      const result = await res.json();
+      const data = result.record;
+
+      // Ekrana basma işlemleri
+      if (typeof renderProjects === "function") renderProjects(data.projects || []);
+      if (typeof renderAnnouncements === "function") renderAnnouncements(data.announcements || []);
+      if (typeof renderRankings === "function") renderRankings(data.rankings || []);
+
+    } catch (err) {
+      console.error("Veri çekilemedi:", err);
+    }
+  }
+
+  // Admin veri eklediğinde JSONBin'i günceller
+  async function saveGlobalData(newData) {
+    try {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': MASTER_KEY
+        },
+        body: JSON.stringify(newData)
+      });
+
+      if (res.ok) {
+        alert("Veriler başarıyla internete kaydedildi! Herkeste güncellendi.");
+        loadGlobalData();
+      }
+    } catch (err) {
+      alert("Kayıt hatası oluştu.");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadGlobalData);
+</script>
+
+/* =========================================================
+   M53G SINGLE FILE ENGINE
+========================================================= */
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+const ADMIN_EMAIL =
+    "m53g@gmail.com";
+
+const ADMIN_PASSWORD =
+    "m53g2026";
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const STORAGE_KEY =
+    "m53g_v7_state";
+
+
+/* =========================================================
+   DEFAULT DATA
+========================================================= */
+
+const DEFAULT_STATE = {
+
+    user:null,
+
+    users:[
+
+        {
+            username:"ProGamer",
+
+            displayName:"ProGamer",
+
+            email:
+                "progamer@m53g.local",
+
+            password:
+                "demo1234",
+
+            xp:5200,
+
+            coins:1400,
+
+            downloads:18,
+
+            verified:true
+
+        },
+
+        {
+            username:"CodeMaster",
+
+            displayName:"CodeMaster",
+
+            email:
+                "codemaster@m53g.local",
+
+            password:
+                "demo1234",
+
+            xp:4100,
+
+            coins:950,
+
+            downloads:13,
+
+            verified:true
+
+        },
+
+        {
+            username:"PixelArtist",
+
+            displayName:"PixelArtist",
+
+            email:
+                "pixel@m53g.local",
+
+            password:
+                "demo1234",
+
+            xp:3200,
+
+            coins:600,
+
+            downloads:7,
+
+            verified:true
+
+        },
+
+        {
+            username:"NightCoder",
+
+            displayName:"NightCoder",
+
+            email:
+                "night@m53g.local",
+
+            password:
+                "demo1234",
+
+            xp:2850,
+
+            coins:450,
+
+            downloads:5,
+
+            verified:true
+
+        },
+
+        {
+            username:"GameDevX",
+
+            displayName:"GameDevX",
+
+            email:
+                "gamedev@m53g.local",
+
+            password:
+                "demo1234",
+
+            xp:1900,
+
+            coins:350,
+
+            downloads:4,
+
+            verified:true
+
+        }
+
+    ],
+
+
+    projects:[
+
+        {
+            id:"p1",
+
+            name:
+                "Kedi Sürüş Oyunu",
+
+            desc:
+                "M53G için hazırlanan eğlenceli araba sürüş oyunu.",
+
+            category:
+                "game",
+
+            engine:
+                "HTML5",
+
+            version:
+                "1.0",
+
+            rating:
+                4.8,
+
+            downloads:
+                12,
+
+            file:
+                "downloads/kedi_surus_oyunu.zip"
+
+        },
+
+
+        {
+            id:"p2",
+
+            name:
+                "M53G Tycoon",
+
+            desc:
+                "Tesislerini geliştir, gelirini büyüt ve yeni alanlar aç.",
+
+            category:
+                "simulation",
+
+            engine:
+                "HTML5",
+
+            version:
+                "1.0",
+
+            rating:
+                4.7,
+
+            downloads:
+                9,
+
+            file:
+                "downloads/m53g_tycoon.zip"
+
+        },
+
+
+        {
+            id:"p3",
+
+            name:
+                "M53G Arena",
+
+            desc:
+                "Yerel iki kişilik hızlı arena aksiyon oyunu.",
+
+            category:
+                "game",
+
+            engine:
+                "HTML5",
+
+            version:
+                "1.0",
+
+            rating:
+                4.9,
+
+            downloads:
+                15,
+
+            file:
+                "downloads/m53g_arena.zip"
+
+        },
+
+
+        {
+            id:"p4",
+
+            name:
+                "M53G Developer Tools",
+
+            desc:
+                "Geliştiriciler için web tabanlı yardımcı araçlar.",
+
+            category:
+                "software",
+
+            engine:
+                "Web",
+
+            version:
+                "1.5",
+
+            rating:
+                4.6,
+
+            downloads:
+                4,
+
+            file:
+                ""
+
+        },
+
+
+        {
+            id:"p5",
+
+            name:
+                "M53G Racing",
+
+            desc:
+                "Hız ve refleks odaklı yarış prototipi.",
+
+            category:
+                "game",
+
+            engine:
+                "HTML5",
+
+            version:
+                "0.8",
+
+            rating:
+                4.5,
+
+            downloads:
+                6,
+
+            file:
+                ""
+
+        },
+
+
+        {
+            id:"p6",
+
+            name:
+                "M53G AI Lab",
+
+            desc:
+                "Yapay zeka deneyleri ve geliştirici test merkezi.",
+
+            category:
+                "software",
+
+            engine:
+                "Web",
+
+            version:
+                "0.3",
+
+            rating:
+                4.9,
+
+            downloads:
+                3,
+
+            file:
+                ""
+
+        }
+
+    ],
+
+
+    poll:{
+
+        question:
+            "Sıradaki M53G projesi ne olsun?",
+
+        options:[
+
+            {
+                text:
+                    "3D Racing",
+
+                votes:
+                    19
+
+            },
+
+            {
+                text:
+                    "Korku Oyunu",
+
+                votes:
+                    12
+
+            },
+
+            {
+                text:
+                    "2D Platformer",
+
+                votes:
+                    9
+
+            },
+
+            {
+                text:
+                    "Tycoon",
+
+                votes:
+                    7
+
+            }
+
+        ],
+
+        voters:{}
+
+    },
+
+
+    announcement:{
+
+        text:
+            "M53G V7 geliştirme süreci aktif. Yeni projeler yakında.",
+
+        author:
+            "M53G Admin",
+
+        time:
+            Date.now()
+
+    },
+
+
+    notifications:[
+
+        {
+            text:
+                "M53G V7 aktif.",
+
+            time:
+                "Şimdi"
+
+        },
+
+        {
+            text:
+                "Yeni proje yönetim sistemi eklendi.",
+
+            time:
+                "Bugün"
+
+        },
+
+        {
+            text:
+                "Haftalık topluluk anketi aktif.",
+
+            time:
+                "Bugün"
+
+        },
+
+        {
+            text:
+                "Yeni başarımlar eklendi.",
+
+            time:
+                "Dün"
+
+        }
+
+    ],
+
+
+    downloads:
+        49
+
+};
+
+
+/* =========================================================
+   LOAD STATE
+========================================================= */
+
+let state;
+
+
+try{
+
+    const saved =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    state =
+        saved
+
+            ?
+
+            {
+                ...structuredClone(
+                    DEFAULT_STATE
+                ),
+
+                ...JSON.parse(
+                    saved
+                )
+            }
+
+            :
+
+            structuredClone(
+                DEFAULT_STATE
+            );
+
+}catch(error){
+
+    state =
+        structuredClone(
+            DEFAULT_STATE
+        );
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function save(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            state
+        )
+    );
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function currentUser(){
+
+    return state.user;
+
+}
+
+
+function isAdmin(){
+
+    return Boolean(
+
+        state.user &&
+
+        state.user.email
+            .toLowerCase() ===
+        ADMIN_EMAIL
+            .toLowerCase()
+
+    );
+
+}
+
+
+function initials(
+    name
+){
+
+    return (
+
+        name ||
+
+        "M53G"
+
+    )
+
+        .trim()
+
+        .split(
+            /\s+/
+        )
+
+        .slice(
+            0,
+            2
+        )
+
+        .map(
+            item =>
+                item[0]
+        )
+
+        .join("")
+
+        .toUpperCase();
+
+}
+
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    ).replace(
+
+        /[&<>"']/g,
+
+        char=>({
+
+            "&":
+                "&amp;",
+
+            "<":
+                "&lt;",
+
+            ">":
+                "&gt;",
+
+            '"':
+                "&quot;",
+
+            "'":
+                "&#039;"
+
+        }[char])
+
+    );
+
+}
+
+
+function openModal(
+    id
+){
+
+    document
+        .getElementById(id)
+        .classList.add(
+            "active"
+        );
+
+}
+
+
+function closeModal(
+    id
+){
+
+    document
+        .getElementById(id)
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+function toast(
+    message
+){
+
+    const box =
+        document.getElementById(
+            "toast"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.m53gToast
+    );
+
+
+    window.m53gToast =
+        setTimeout(
+            ()=>{
+                box.classList.remove(
+                    "show"
+                );
+            },
+            2700
+        );
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document.getElementById(
+    "loginSubmit"
+).onclick =
+function(){
+
+    const email =
+        document
+            .getElementById(
+                "loginEmail"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const password =
+        document
+            .getElementById(
+                "loginPassword"
+            )
+            .value;
+
+
+    if(
+        !email ||
+        !password
+    ){
+
+        toast(
+            "E-posta ve şifre gerekli."
+        );
+
+        return;
+
+    }
+
+
+    /* ADMIN */
+
+    if(
+
+        email ===
+            ADMIN_EMAIL
+
+        &&
+
+        password ===
+            ADMIN_PASSWORD
+
+    ){
+
+        state.user = {
+
+            username:
+                "m53g_admin",
+
+            displayName:
+                "M53G Admin",
+
+            email:
+                ADMIN_EMAIL,
+
+            password:
+                ADMIN_PASSWORD,
+
+            xp:
+                9999,
+
+            coins:
+                99999,
+
+            downloads:
+                0,
+
+            verified:
+                true,
+
+            admin:
+                true
+
+        };
+
+
+        save();
+
+
+        closeModal(
+            "loginModal"
+        );
+
+
+        renderAll();
+
+
+        toast(
+            "Admin girişi başarılı 👑"
+        );
+
+
+        return;
+
+    }
+
+
+    /* PLAYER */
+
+    const user =
+        state.users.find(
+            item =>
+
+                item.email
+                    .toLowerCase() ===
+                email
+
+                &&
+
+                item.password ===
+                password
+        );
+
+
+    if(!user){
+
+        toast(
+            "E-posta veya şifre hatalı."
+        );
+
+        return;
+
+    }
+
+
+    state.user = {
+
+        ...user,
+
+        admin:false
+
+    };
+
+
+    save();
+
+
+    closeModal(
+        "loginModal"
+    );
+
+
+    renderAll();
+
+
+    toast(
+        "Giriş başarılı 👋"
+    );
+
+};
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+document.getElementById(
+    "registerSubmit"
+).onclick =
+function(){
+
+    const username =
+        document
+            .getElementById(
+                "registerUsername"
+            )
+            .value
+            .trim();
+
+
+    const email =
+        document
+            .getElementById(
+                "registerEmail"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const password =
+        document
+            .getElementById(
+                "registerPassword"
+            )
+            .value;
+
+
+    if(
+        !username ||
+        !email ||
+        !password
+    ){
+
+        toast(
+            "Tüm alanları doldur."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        username.length < 3
+    ){
+
+        toast(
+            "Kullanıcı adı en az 3 karakter olmalı."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        password.length < 8
+    ){
+
+        toast(
+            "Şifre en az 8 karakter olmalı."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !email.includes("@")
+    ){
+
+        toast(
+            "Geçerli bir e-posta gir."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        email ===
+        ADMIN_EMAIL
+    ){
+
+        toast(
+            "Bu adres admin hesabında kullanılıyor."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        state.users.some(
+            user =>
+                user.email
+                    .toLowerCase() ===
+                email
+        )
+    ){
+
+        toast(
+            "Bu e-posta zaten kayıtlı."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        state.users.some(
+            user =>
+                user.username
+                    .toLowerCase() ===
+                username
+                    .toLowerCase()
+        )
+    ){
+
+        toast(
+            "Bu kullanıcı adı zaten kullanılıyor."
+        );
+
+        return;
+
+    }
+
+
+    const user = {
+
+        username,
+
+        displayName:
+            username,
+
+        email,
+
+        password,
+
+        xp:0,
+
+        coins:500,
+
+        downloads:0,
+
+        verified:false
+
+    };
+
+
+    state.users.push(
+        user
+    );
+
+
+    state.user={
+        ...user,
+
+        admin:false
+
+    };
+
+
+    save();
+
+
+    closeModal(
+        "registerModal"
+    );
+
+
+    renderAll();
+
+
+    toast(
+        "Hesap oluşturuldu 🎉"
+    );
+
+};
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+document.getElementById(
+    "forgotSubmit"
+).onclick =
+function(){
+
+    const email =
+        document
+            .getElementById(
+                "forgotEmail"
+            )
+            .value
+            .trim();
+
+
+    if(!email){
+
+        toast(
+            "E-posta adresini yaz."
+        );
+
+        return;
+
+    }
+
+
+    closeModal(
+        "forgotModal"
+    );
+
+
+    openModal(
+        "resetInfoModal"
+    );
+
+};
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function openSettings(){
+
+    if(!state.user){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "settingsName"
+    ).value =
+
+        state.user.displayName ||
+        state.user.username;
+
+
+    const theme =
+        localStorage.getItem(
+            "m53g_theme"
+        ) ||
+        "dark";
+
+
+    document.getElementById(
+        "settingsTheme"
+    ).value =
+        theme;
+
+
+    openModal(
+        "settingsModal"
+    );
+
+}
+
+
+document.getElementById(
+    "settingsSaveButton"
+).onclick =
+function(){
+
+    if(!state.user){
+
+        return;
+
+    }
+
+
+    const name =
+        document
+            .getElementById(
+                "settingsName"
+            )
+            .value
+            .trim();
+
+
+    const theme =
+        document
+            .getElementById(
+                "settingsTheme"
+            )
+            .value;
+
+
+    if(
+        name.length < 2
+    ){
+
+        toast(
+            "Görünen ad çok kısa."
+        );
+
+        return;
+
+    }
+
+
+    state.user.displayName =
+        name;
+
+
+    if(
+        !state.user.admin
+    ){
+
+        const user =
+            state.users.find(
+                item =>
+                    item.email ===
+                    state.user.email
+            );
+
+
+        if(user){
+
+            user.displayName =
+                name;
+
+        }
+
+    }
+
+
+    localStorage.setItem(
+        "m53g_theme",
+        theme
+    );
+
+
+    document.body.setAttribute(
+        "data-theme",
+        theme
+    );
+
+
+    save();
+
+
+    closeModal(
+        "settingsModal"
+    );
+
+
+    renderAll();
+
+
+    toast(
+        "Ayarlar kaydedildi ✅"
+    );
+
+};
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+    state.user =
+        null;
+
+
+    save();
+
+
+    renderAll();
+
+
+    location.hash =
+        "hero";
+
+
+    toast(
+        "Çıkış yapıldı."
+    );
+
+}
+
+
+/* =========================================================
+   DAILY REWARD
+========================================================= */
+
+function claimDailyReward(){
+
+    if(!state.user){
+
+        toast(
+            "Önce giriş yap."
+        );
+
+        openModal(
+            "loginModal"
+        );
+
+        return;
+
+    }
+
+
+    const today =
+        new Date()
+            .toDateString();
+
+
+    const claimKey =
+        "m53g_daily_" +
+        (
+            state.user.email
+        ) +
+        "_" +
+        today;
+
+
+    if(
+        localStorage.getItem(
+            claimKey
+        )
+    ){
+
+        toast(
+            "Bugünkü ödülünü zaten aldın."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        claimKey,
+        "1"
+    );
+
+
+    state.user.coins +=
+        100;
+
+
+    state.user.xp +=
+        50;
+
+
+    if(
+        !state.user.admin
+    ){
+
+        const user =
+            state.users.find(
+                item =>
+                    item.email ===
+                    state.user.email
+            );
+
+
+        if(user){
+
+            user.coins =
+                state.user.coins;
+
+            user.xp =
+                state.user.xp;
+
+        }
+
+    }
+
+
+    save();
+
+
+    renderAll();
+
+
+    toast(
+        "+100 Coin +50 XP 🎁"
+    );
+
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+function renderProjects(){
+
+    const grid =
+        document.getElementById(
+            "projectsGrid"
+        );
+
+
+    const search =
+        document
+            .getElementById(
+                "projectSearch"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const filter =
+        document
+            .getElementById(
+                "projectFilter"
+            )
+            .value;
+
+
+    const sort =
+        document
+            .getElementById(
+                "projectSort"
+            )
+            .value;
+
+
+    let projects =
+        state.projects.filter(
+            project=>{
+
+                const text =
+                    (
+                        project.name +
+                        " " +
+                        project.desc +
+                        " " +
+                        project.engine +
+                        " " +
+                        project.category
+                    )
+                    .toLowerCase();
+
+
+                const matchesSearch =
+                    text.includes(
+                        search
+                    );
+
+
+                const matchesFilter =
+                    filter ===
+                        "all" ||
+
+                    project.category ===
+                        filter;
+
+
+                return (
+                    matchesSearch &&
+                    matchesFilter
+                );
+
+            }
+        );
+
+
+    if(
+        sort ===
+        "name"
+    ){
+
+        projects.sort(
+            (a,b)=>
+                a.name.localeCompare(
+                    b.name
+                )
+        );
+
+    }
+
+
+    if(
+        sort ===
+        "rating"
+    ){
+
+        projects.sort(
+            (a,b)=>
+                Number(
+                    b.rating
+                ) -
+                Number(
+                    a.rating
+                )
+        );
+
+    }
+
+
+    if(
+        sort ===
+        "downloads"
+    ){
+
+        projects.sort(
+            (a,b)=>
+                Number(
+                    b.downloads
+                ) -
+                Number(
+                    a.downloads
+                )
+        );
+
+    }
+
+
+    grid.innerHTML =
+        projects
+            .map(
+                project=>`
+
+                    <article
+                        class="project-card"
+                    >
+
+                        <div>
+
+                            <div
+                                class="project-top"
+                            >
+
+                                <span
+                                    class="tag"
+                                >
+                                    ${escapeHtml(
+                                        project.engine
+                                    )}
+                                </span>
+
+
+                                <span
+                                    style="
+                                        color:var(--gold);
+                                        font-size:.84rem;
+                                        font-weight:850
+                                    "
+                                >
+                                    ★
+                                    ${Number(
+                                        project.rating ||
+                                        5
+                                    ).toFixed(1)}
+                                </span>
+
+                            </div>
+
+
+                            <h3
+                                class="project-title"
+                            >
+                                ${escapeHtml(
+                                    project.name
+                                )}
+                            </h3>
+
+
+                            <p
+                                class="
+                                    project-description
+                                "
+                            >
+                                ${escapeHtml(
+                                    project.desc
+                                )}
+                            </p>
+
+
+                            <div
+                                class="project-meta"
+                            >
+
+                                <span
+                                    class="tag"
+                                >
+                                    ${escapeHtml(
+                                        project.category
+                                    )}
+                                </span>
+
+
+                                <span
+                                    class="tag"
+                                >
+                                    v${escapeHtml(
+                                        project.version ||
+                                        "1.0"
+                                    )}
+                                </span>
+
+
+                                <span
+                                    class="tag"
+                                >
+                                    📥
+                                    ${Number(
+                                        project.downloads ||
+                                        0
+                                    )}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="project-footer"
+                        >
+
+                            ${
+                                project.file
+
+                                ?
+
+                                `
+                                <a
+                                    class="
+                                        btn
+                                        btn-primary
+                                    "
+                                    style="
+                                        width:100%
+                                    "
+                                    href="${escapeHtml(
+                                        project.file
+                                    )}"
+                                    download
+                                    onclick="
+                                        downloadProject(
+                                            '${escapeHtml(
+                                                project.id
+                                            )}'
+                                        )
+                                    "
+                                >
+                                    📥 İNDİR
+                                </a>
+                                `
+
+                                :
+
+                                `
+                                <button
+                                    class="
+                                        btn
+                                        btn-secondary
+                                    "
+                                    style="
+                                        width:100%
+                                    "
+                                    disabled
+                                >
+                                    🔧 GELİŞTİRİLİYOR
+                                </button>
+                                `
+
+                            }
+
+                        </div>
+
+                    </article>
+
+                `
+            )
+            .join("");
+
+
+    document.getElementById(
+        "statProjects"
+    ).textContent =
+        state.projects.length;
+
+
+    document.getElementById(
+        "statDownloads"
+    ).textContent =
+        state.downloads;
+
+
+    document.getElementById(
+        "statUsers"
+    ).textContent =
+        state.users.length +
+
+        (
+
+            state.user &&
+
+            !state.users.some(
+                user =>
+                    user.email ===
+                    state.user.email
+            )
+
+            ? 1
+            : 0
+
+        );
+
+}
+
+
+function downloadProject(
+    id
+){
+
+    const project =
+        state.projects.find(
+            item =>
+                item.id ===
+                id
+        );
+
+
+    if(!project){
+
+        return;
+
+    }
+
+
+    project.downloads =
+        Number(
+            project.downloads ||
+            0
+        ) + 1;
+
+
+    state.downloads =
+        Number(
+            state.downloads ||
+            0
+        ) + 1;
+
+
+    if(
+        state.user
+    ){
+
+        state.user.xp =
+            Number(
+                state.user.xp ||
+                0
+            ) + 20;
+
+
+        state.user.coins =
+            Number(
+                state.user.coins ||
+                0
+            ) + 10;
+
+
+        state.user.downloads =
+            Number(
+                state.user.downloads ||
+                0
+            ) + 1;
+
+
+        if(
+            !state.user.admin
+        ){
+
+            const realUser =
+                state.users.find(
+                    user =>
+                        user.email ===
+                        state.user.email
+                );
+
+
+            if(realUser){
+
+                realUser.xp =
+                    state.user.xp;
+
+                realUser.coins =
+                    state.user.coins;
+
+                realUser.downloads =
+                    state.user.downloads;
+
+            }
+
+        }
+
+    }
+
+
+    save();
+
+
+    renderAll();
+
+
+    toast(
+
+        state.user
+
+            ?
+
+            "+20 XP +10 Coin 🚀"
+
+            :
+
+            "İndirme başladı 📥"
+
+    );
+
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+function renderLeaderboard(){
+
+    const box =
+        document.getElementById(
+            "leaderboardList"
+        );
+
+
+    let users =
+        [
+            ...state.users
+        ];
+
+
+    if(
+        state.user &&
+
+        !users.some(
+            user =>
+                user.email ===
+                state.user.email
+        )
+
+    ){
+
+        users.push(
+            state.user
+        );
+
+    }
+
+
+    users.sort(
+        (a,b)=>
+            Number(
+                b.xp || 0
+            ) -
+
+            Number(
+                a.xp || 0
+            )
+    );
+
+
+    if(
+        !users.length
+    ){
+
+        box.innerHTML =
+            `
+                <div
+                    class="notice"
+                >
+                    Henüz oyuncu yok.
+                </div>
+            `;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        users
+            .slice(
+                0,
+                20
+            )
+            .map(
+                (user,index)=>`
+
+                    <div
+                        class="
+                            leader-row
+                        "
+                    >
+
+                        <div
+                            class="
+                                leader-left
+                            "
+                        >
+
+                            <span
+                                class="rank"
+                            >
+                                ${index+1}.
+                            </span>
+
+                            <strong>
+                                ${escapeHtml(
+                                    user.displayName ||
+                                    user.username
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span
+                                style="
+                                    color:var(--cyan);
+                                    margin-right:10px
+                                "
+                            >
+                                ⚡
+                                ${Number(
+                                    user.xp ||
+                                    0
+                                )}
+                            </span>
+
+
+                            <span
+                                style="
+                                    color:var(--gold)
+                                "
+                            >
+                                🪙
+                                ${Number(
+                                    user.coins ||
+                                    0
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+function renderAchievements(){
+
+    const box =
+        document.getElementById(
+            "achievementGrid"
+        );
+
+
+    const user =
+        state.user;
+
+
+    const downloads =
+        Number(
+            user?.downloads ||
+            0
+        );
+
+
+    const xp =
+        Number(
+            user?.xp ||
+            0
+        );
+
+
+    const achievements=[
+
+        {
+
+            title:
+                "İlk Adım",
+
+            desc:
+                "M53G hesabı oluştur.",
+
+            icon:
+                "🚀",
+
+            unlocked:
+                Boolean(
+                    user
+                )
+
+        },
+
+
+        {
+
+            title:
+                "Doğrulanmış",
+
+            desc:
+                "E-posta hesabını doğrula.",
+
+            icon:
+                "✅",
+
+            unlocked:
+                Boolean(
+                    user?.verified
+                )
+
+        },
+
+
+        {
+
+            title:
+                "Proje Avcısı",
+
+            desc:
+                "İlk projeni indir.",
+
+            icon:
+                "📥",
+
+            unlocked:
+                downloads >= 1
+
+        },
+
+
+        {
+
+            title:
+                "Aktif Oyuncu",
+
+            desc:
+                "3 proje indir.",
+
+            icon:
+                "🎮",
+
+            unlocked:
+                downloads >= 3
+
+        },
+
+
+        {
+
+            title:
+                "M53G Fanı",
+
+            desc:
+                "5 proje indir.",
+
+            icon:
+                "🔥",
+
+            unlocked:
+                downloads >= 5
+
+        },
+
+
+        {
+
+            title:
+                "Elite Developer",
+
+            desc:
+                "2500 XP kazan.",
+
+            icon:
+                "👑",
+
+            unlocked:
+                xp >= 2500
+
+        }
+
+
+    ];
+
+
+    box.innerHTML =
+        achievements
+            .map(
+                item=>`
+
+                    <div
+                        class="
+                            card
+                            achievement-card
+                            ${
+                                item.unlocked
+                                    ? ""
+                                    : "locked"
+                            }
+                        "
+                    >
+
+                        <div
+                            class="
+                                achievement-icon
+                            "
+                        >
+                            ${item.icon}
+                        </div>
+
+
+                        <h3>
+                            ${escapeHtml(
+                                item.title
+                            )}
+                        </h3>
+
+
+                        <p
+                            class="small"
+                            style="
+                                margin-top:7px
+                            "
+                        >
+                            ${escapeHtml(
+                                item.desc
+                            )}
+                        </p>
+
+
+                        <div
+                            style="
+                                margin-top:14px;
+                                color:
+                                    ${
+                                        item.unlocked
+                                        ? "var(--green)"
+                                        : "#666"
+                                    };
+                                font-size:.72rem;
+                                font-weight:900
+                            "
+                        >
+                            ${
+                                item.unlocked
+                                    ? "✓ AÇILDI"
+                                    : "🔒 KİLİTLİ"
+                            }
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   POLL
+========================================================= */
+
+function renderPoll(){
+
+    document.getElementById(
+        "pollQuestion"
+    ).textContent =
+        state.poll.question;
+
+
+    const box =
+        document.getElementById(
+            "pollOptions"
+        );
+
+
+    const total =
+        state.poll.options.reduce(
+
+            (
+                sum,
+                option
+            )=>
+
+                sum +
+                Number(
+                    option.votes ||
+                    0
+                ),
+
+            0
+
+        ) || 1;
+
+
+    box.innerHTML =
+        state.poll.options
+            .map(
+                (
+                    option,
+                    index
+                )=>{
+
+                    const percent =
+                        Math.round(
+
+                            (
+                                Number(
+                                    option.votes ||
+                                    0
+                                ) /
+                                total
+                            )
+
+                            *
+
+                            100
+
+                        );
+
+
+                    const alreadyVoted =
+                        state.user &&
+
+                        state.poll.voters[
+                            state.user.email
+                        ];
+
+
+                    return `
+
+                        <button
+                            class="
+                                poll-option
+                            "
+                            ${
+                                alreadyVoted
+                                    ? "disabled"
+                                    : ""
+                            }
+                            onclick="
+                                votePoll(
+                                    ${index}
+                                )
+                            "
+                        >
+
+                            <span>
+                                ${escapeHtml(
+                                    option.text
+                                )}
+                            </span>
+
+
+                            <strong
+                                style="
+                                    color:var(--blue)
+                                "
+                            >
+                                ${percent}%
+                            </strong>
+
+                        </button>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+function votePoll(
+    index
+){
+
+    if(!state.user){
+
+        toast(
+            "Oy vermek için giriş yap."
+        );
+
+        openModal(
+            "loginModal"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        state.poll.voters[
+            state.user.email
+        ]
+    ){
+
+        toast(
+            "Bu ankette zaten oy kullandın."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !state.poll.options[index]
+    ){
+
+        return;
+
+    }
+
+
+    state.poll.options[
+        index
+    ].votes++;
+
+
+    state.poll.voters[
+        state.user.email
+    ] =
+        true;
+
+
+    save();
+
+
+    renderPoll();
+
+
+    toast(
+        "Oyun kaydedildi 🗳️"
+    );
+
+}
+
+
+document.getElementById(
+    "publishPollButton"
+).onclick =
+function(){
+
+    if(!isAdmin()){
+
+        toast(
+            "Sadece admin anket oluşturabilir."
+        );
+
+        return;
+
+    }
+
+
+    const question =
+        document
+            .getElementById(
+                "newPollQuestion"
+            )
+            .value
+            .trim();
+
+
+    const optionsText =
+        document
+            .getElementById(
+                "newPollOptions"
+            )
+            .value
+            .trim();
+
+
+    const options =
+        optionsText
+            .split(",")
+            .map(
+                item =>
+                    item.trim()
+            )
+            .filter(
+                Boolean
+            )
+            .slice(
+                0,
+                8
+            );
+
+
+    if(
+        !question ||
+        options.length < 2
+    ){
+
+        toast(
+            "Soru ve en az 2 seçenek gerekli."
+        );
+
+        return;
+
+    }
+
+
+    state.poll={
+
+        question,
+
+        options:
+            options.map(
+                text=>({
+
+                    text,
+
+                    votes:0
+
+                })
+            ),
+
+        voters:{}
+
+    };
+
+
+    save();
+
+
+    renderPoll();
+
+
+    document.getElementById(
+        "newPollQuestion"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "newPollOptions"
+    ).value =
+        "";
+
+
+    toast(
+        "Anket yayınlandı 👑"
+    );
+
+};
+
+
+/* =========================================================
+   ANNOUNCEMENT
+========================================================= */
+
+function renderAnnouncement(){
+
+    const box =
+        document.getElementById(
+            "announcementBox"
+        );
+
+
+    box.innerHTML = `
+
+        <strong>
+            ${escapeHtml(
+                state.announcement.author
+            )}
+        </strong>
+
+
+        <div
+            style="
+                margin-top:7px
+            "
+        >
+            ${escapeHtml(
+                state.announcement.text
+            )}
+        </div>
+
+
+        <div
+            class="small"
+            style="
+                margin-top:8px
+            "
+        >
+            ${new Date(
+                state.announcement.time
+            ).toLocaleString(
+                "tr-TR"
+            )}
+        </div>
+
+    `;
+
+}
+
+
+document.getElementById(
+    "publishAnnouncementButton"
+).onclick =
+function(){
+
+    if(!isAdmin()){
+
+        toast(
+            "Sadece admin duyuru yayınlayabilir."
+        );
+
+        return;
+
+    }
+
+
+    const text =
+        document
+            .getElementById(
+                "announcementInput"
+            )
+            .value
+            .trim();
+
+
+    if(!text){
+
+        toast(
+            "Mesaj yaz."
+        );
+
+        return;
+
+    }
+
+
+    state.announcement={
+
+        text,
+
+        author:
+            state.user.displayName,
+
+        time:
+            Date.now()
+
+    };
+
+
+    state.notifications.unshift({
+
+        text:
+            "Yeni admin duyurusu yayınlandı.",
+
+        time:
+            "Şimdi"
+
+    });
+
+
+    state.notifications =
+        state.notifications.slice(
+            0,
+            12
+        );
+
+
+    save();
+
+
+    renderAnnouncement();
+
+    renderNotifications();
+
+
+    document.getElementById(
+        "announcementInput"
+    ).value =
+        "";
+
+
+    toast(
+        "Duyuru yayınlandı 👑"
+    );
+
+};
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function renderNotifications(){
+
+    const box =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    box.innerHTML =
+        state.notifications
+            .slice(
+                0,
+                10
+            )
+            .map(
+                item=>`
+
+                    <div
+                        class="
+                            notification-item
+                        "
+                    >
+
+                        <div>
+                            ${escapeHtml(
+                                item.text
+                            )}
+                        </div>
+
+                        <div
+                            class="small"
+                            style="
+                                margin-top:3px
+                            "
+                        >
+                            ${escapeHtml(
+                                item.time
+                            )}
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   ADMIN PANEL
+========================================================= */
+
+function renderAdmin(){
+
+    const admin =
+        isAdmin();
+
+
+    const adminNav =
+        document.getElementById(
+            "adminNav"
+        );
+
+
+    const pollBox =
+        document.getElementById(
+            "adminPollBox"
+        );
+
+
+    const announcementBox =
+        document.getElementById(
+            "adminAnnouncementBox"
+        );
+
+
+    const content =
+        document.getElementById(
+            "adminContent"
+        );
+
+
+    adminNav.style.display =
+        admin
+            ? "block"
+            : "none";
+
+
+    pollBox.style.display =
+        admin
+            ? "block"
+            : "none";
+
+
+    announcementBox.style.display =
+        admin
+            ? "block"
+            : "none";
+
+
+    if(!admin){
+
+        content.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    text-align:center;
+                    padding:45px 25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:3rem;
+                        margin-bottom:10px;
+                    "
+                >
+                    🔒
+                </div>
+
+                <h3>
+                    Admin erişimi gerekli
+                </h3>
+
+                <p
+                    class="small"
+                    style="
+                        margin-top:7px
+                    "
+                >
+                    Proje yönetimi yalnızca
+                    M53G admin hesabında bulunur.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    content.innerHTML = `
+
+        <div
+            style="
+                display:grid;
+                gap:18px;
+            "
+        >
+
+            <!-- ADMIN INFO -->
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:
+                        repeat(
+                            auto-fit,
+                            minmax(
+                                180px,
+                                1fr
+                            )
+                        );
+                    gap:12px;
+                "
+            >
+
+                <div class="card">
+
+                    <div
+                        class="small"
+                    >
+                        ADMIN
+                    </div>
+
+                    <div
+                        style="
+                            margin-top:4px;
+                            font-weight:900;
+                            color:var(--gold)
+                        "
+                    >
+                        👑 M53G ADMIN
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div
+                        class="small"
+                    >
+                        PROJE SAYISI
+                    </div>
+
+                    <div
+                        style="
+                            margin-top:4px;
+                            font-size:1.7rem;
+                            font-weight:950
+                        "
+                    >
+                        ${state.projects.length}
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div
+                        class="small"
+                    >
+                        OYUNCU
+                    </div>
+
+                    <div
+                        style="
+                            margin-top:4px;
+                            font-size:1.7rem;
+                            font-weight:950
+                        "
+                    >
+                        ${state.users.length}
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div
+                        class="small"
+                    >
+                        İNDİRME
+                    </div>
+
+                    <div
+                        style="
+                            margin-top:4px;
+                            font-size:1.7rem;
+                            font-weight:950
+                        "
+                    >
+                        ${state.downloads}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADD PROJECT -->
+
+            <div class="card">
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:10px;
+                        align-items:center;
+                        margin-bottom:17px;
+                    "
+                >
+
+                    <div>
+
+                        <h3>
+                            ➕ Oyun / Proje Ekle
+                        </h3>
+
+                        <div
+                            class="small"
+                            style="
+                                margin-top:4px
+                            "
+                        >
+                            Yeni projeyi M53G'ye yayınla.
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:2rem
+                        "
+                    >
+                        🎮
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="
+                        admin-form-grid
+                    "
+                >
+
+                    <input
+                        id="adminProjectName"
+                        class="input"
+                        placeholder="Proje adı"
+                        maxlength="70"
+                    >
+
+
+                    <input
+                        id="adminProjectEngine"
+                        class="input"
+                        placeholder="Motor / platform"
+                        maxlength="30"
+                    >
+
+
+                    <select
+                        id="adminProjectCategory"
+                        class="select"
+                    >
+
+                        <option value="game">
+                            🎮 Oyun
+                        </option>
+
+                        <option value="simulation">
+                            🏭 Simülasyon
+                        </option>
+
+                        <option value="software">
+                            💻 Yazılım
+                        </option>
+
+                    </select>
+
+
+                    <input
+                        id="adminProjectVersion"
+                        class="input"
+                        placeholder="Versiyon"
+                        value="1.0"
+                        maxlength="20"
+                    >
+
+
+                    <input
+                        id="adminProjectRating"
+                        class="input"
+                        type="number"
+                        min="0"
+                        max="5"
+                        step=".1"
+                        value="5"
+                        placeholder="Puan"
+                    >
+
+
+                    <input
+                        id="adminProjectFile"
+                        class="input"
+                        placeholder="ZIP yolu (örn: downloads/oyun.zip)"
+                    >
+
+
+                    <textarea
+                        id="adminProjectDescription"
+                        class="
+                            textarea
+                            admin-form-full
+                        "
+                        placeholder="Proje açıklaması..."
+                        maxlength="500"
+                    ></textarea>
+
+
+                    <button
+                        class="
+                            btn
+                            btn-success
+                            admin-form-full
+                        "
+                        onclick="
+                            adminAddProject()
+                        "
+                    >
+                        🚀 PROJEYİ YAYINLA
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="notice"
+                    style="
+                        margin-top:11px
+                    "
+                >
+
+                    ZIP dosyasını
+                    <strong>
+                        downloads
+                    </strong>
+                    klasörüne koy.
+                    Sonra dosya yolunu
+                    yukarıdaki alana yaz.
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT MANAGEMENT -->
+
+            <div class="card">
+
+                <div
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        gap:10px;
+                        margin-bottom:15px;
+                    "
+                >
+
+                    <div>
+
+                        <h3>
+                            📦 Proje Yönetimi
+                        </h3>
+
+                        <div
+                            class="small"
+                            style="
+                                margin-top:4px
+                            "
+                        >
+                            Eklenen projeleri düzenle veya sil.
+                        </div>
+
+                    </div>
+
+
+                    <span
+                        class="tag"
+                    >
+                        ${state.projects.length}
+                        PROJE
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="adminProjectList"
+                    style="
+                        display:grid;
+                        gap:10px
+                    "
+                ></div>
+
+            </div>
+
+
+            <!-- ADMIN SECURITY -->
+
+            <div class="card">
+
+                <h3>
+                    🛡️ Admin Durumu
+                </h3>
+
+
+                <div
+                    class="notice"
+                    style="
+                        margin-top:12px;
+                        border-color:
+                            rgba(
+                                101,
+                                255,
+                                145,
+                                .22
+                            );
+                        background:
+                            rgba(
+                                101,
+                                255,
+                                145,
+                                .07
+                            );
+                        color:
+                            var(--green)
+                    "
+                >
+
+                    Admin hesabı aktif.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    renderAdminProjectList();
+
+}
+
+
+/* =========================================================
+   ADMIN PROJECT LIST
+========================================================= */
+
+function renderAdminProjectList(){
+
+    const box =
+        document.getElementById(
+            "adminProjectList"
+        );
+
+
+    if(!box){
+
+        return;
+
+    }
+
+
+    if(
+        !state.projects.length
+    ){
+
+        box.innerHTML = `
+
+            <div
+                class="notice"
+            >
+                Henüz proje yok.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        state.projects
+            .map(
+                project=>`
+
+                    <div
+                        class="
+                            admin-project-item
+                        "
+                    >
+
+                        <div
+                            class="
+                                admin-project-info
+                            "
+                        >
+
+                            <div
+                                class="
+                                    admin-project-name
+                                "
+                            >
+
+                                <strong>
+                                    ${escapeHtml(
+                                        project.name
+                                    )}
+                                </strong>
+
+
+                                <span class="tag">
+                                    ${escapeHtml(
+                                        project.engine
+                                    )}
+                                </span>
+
+
+                                <span class="tag">
+                                    ${escapeHtml(
+                                        project.category
+                                    )}
+                                </span>
+
+
+                                <span class="tag">
+                                    v${escapeHtml(
+                                        project.version ||
+                                        "1.0"
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    admin-project-desc
+                                "
+                            >
+                                ${escapeHtml(
+                                    project.desc
+                                )}
+                            </div>
+
+
+                            <div
+                                style="
+                                    margin-top:6px;
+                                    color:#777;
+                                    font-size:.7rem
+                                "
+                            >
+
+                                ⭐
+                                ${Number(
+                                    project.rating ||
+                                    0
+                                ).toFixed(1)}
+
+                                &nbsp;&nbsp;
+
+                                📥
+                                ${Number(
+                                    project.downloads ||
+                                    0
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="
+                                admin-project-actions
+                            "
+                        >
+
+                            <button
+                                class="
+                                    btn
+                                    btn-secondary
+                                "
+                                style="
+                                    padding:
+                                        8px 11px
+                                "
+                                onclick="
+                                    adminEditProject(
+                                        '${escapeHtml(
+                                            project.id
+                                        )}'
+                                    )
+                                "
+                            >
+                                ✏️ Düzenle
+                            </button>
+
+
+                            <button
+                                class="
+                                    btn
+                                    btn-danger
+                                "
+                                style="
+                                    padding:
+                                        8px 11px
+                                "
+                                onclick="
+                                    adminDeleteProject(
+                                        '${escapeHtml(
+                                            project.id
+                                        )}'
+                                    )
+                                "
+                            >
+                                🗑️ Sil
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   ADMIN ADD PROJECT
+========================================================= */
+
+function adminAddProject(){
+
+    if(!isAdmin()){
+
+        toast(
+            "Admin yetkisi gerekli."
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document
+            .getElementById(
+                "adminProjectName"
+            )
+            .value
+            .trim();
+
+
+    const engine =
+        document
+            .getElementById(
+                "adminProjectEngine"
+            )
+            .value
+            .trim();
+
+
+    const category =
+        document
+            .getElementById(
+                "adminProjectCategory"
+            )
+            .value;
+
+
+    const version =
+        document
+            .getElementById(
+                "adminProjectVersion"
+            )
+            .value
+            .trim() ||
+        "1.0";
+
+
+    const rating =
+        Number(
+            document
+                .getElementById(
+                    "adminProjectRating"
+                )
+                .value
+        );
+
+
+    const file =
+        document
+            .getElementById(
+                "adminProjectFile"
+            )
+            .value
+            .trim();
+
+
+    const desc =
+        document
+            .getElementById(
+                "adminProjectDescription"
+            )
+            .value
+            .trim();
+
+
+    if(
+        !name ||
+        !engine ||
+        !desc
+    ){
+
+        toast(
+            "Ad, motor ve açıklama gerekli."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        Number.isNaN(
+            rating
+        ) ||
+
+        rating < 0 ||
+
+        rating > 5
+
+    ){
+
+        toast(
+            "Puan 0 ile 5 arasında olmalı."
+        );
+
+        return;
+
+    }
+
+
+    const project={
+
+        id:
+            "p_" +
+            Date.now() +
+            "_" +
+            Math.random()
+                .toString(36)
+                .slice(
+                    2,
+                    8
+                ),
+
+        name,
+
+        desc,
+
+        category,
+
+        engine,
+
+        version,
+
+        rating:
+            Number(
+                rating.toFixed(
+                    1
+                )
+            ),
+
+        downloads:0,
+
+        file
+
+    };
+
+
+    state.projects.unshift(
+        project
+    );
+
+
+    state.notifications.unshift({
+
+        text:
+            "Yeni proje eklendi: " +
+            name,
+
+        time:
+            "Şimdi"
+
+    });
+
+
+    state.notifications =
+        state.notifications.slice(
+            0,
+            12
+        );
+
+
+    save();
+
+
+    document.getElementById(
+        "adminProjectName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "adminProjectEngine"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "adminProjectVersion"
+    ).value =
+        "1.0";
+
+
+    document.getElementById(
+        "adminProjectRating"
+    ).value =
+        "5";
+
+
+    document.getElementById(
+        "adminProjectFile"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "adminProjectDescription"
+    ).value =
+        "";
+
+
+    renderAll();
+
+
+    toast(
+        "Proje M53G'ye eklendi 🚀"
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN DELETE PROJECT
+========================================================= */
+
+function adminDeleteProject(
+    id
+){
+
+    if(!isAdmin()){
+
+        toast(
+            "Admin yetkisi gerekli."
+        );
+
+        return;
+
+    }
+
+
+    const project =
+        state.projects.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!project){
+
+        toast(
+            "Proje bulunamadı."
+        );
+
+        return;
+
+    }
+
+
+    const result =
+        confirm(
+
+            "“" +
+            project.name +
+            "” projesini silmek istediğine emin misin?"
+
+        );
+
+
+    if(!result){
+
+        return;
+
+    }
+
+
+    state.projects =
+        state.projects.filter(
+            item =>
+                item.id !==
+                id
+        );
+
+
+    state.notifications.unshift({
+
+        text:
+            "Proje silindi: " +
+            project.name,
+
+        time:
+            "Şimdi"
+
+    });
+
+
+    state.notifications =
+        state.notifications.slice(
+            0,
+            12
+        );
+
+
+    save();
+
+
+    renderAll();
+
+
+    toast(
+        "Proje silindi 🗑️"
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN EDIT PROJECT
+========================================================= */
+
+function adminEditProject(
+    id
+){
+
+    if(!isAdmin()){
+
+        toast(
+            "Admin yetkisi gerekli."
+        );
+
+        return;
+
+    }
+
+
+    const project =
+        state.projects.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!project){
+
+        toast(
+            "Proje bulunamadı."
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        prompt(
+            "Proje adı:",
+            project.name
+        );
+
+
+    if(
+        name === null
+    ){
+
+        return;
+
+    }
+
+
+    const desc =
+        prompt(
+            "Açıklama:",
+            project.desc
+        );
+
+
+    if(
+        desc === null
+    ){
+
+        return;
+
+    }
+
+
+    const engine =
+        prompt(
+            "Motor / platform:",
+            project.engine
+        );
+
+
+    if(
+        engine === null
+    ){
+
+        return;
+
+    }
+
+
+    const version =
+        prompt(
+            "Versiyon:",
+            project.version ||
+            "1.0"
+        );
+
+
+    if(
+        version === null
+    ){
+
+        return;
+
+    }
+
+
+    const ratingValue =
+        prompt(
+            "Puan (0-5):",
+            project.rating
+        );
+
+
+    if(
+        ratingValue === null
+    ){
+
+        return;
+
+    }
+
+
+    const rating =
+        Number(
+            ratingValue
+        );
+
+
+    if(
+        Number.isNaN(
+            rating
+        ) ||
+
+        rating < 0 ||
+
+        rating > 5
+
+    ){
+
+        toast(
+            "Puan 0 ile 5 arasında olmalı."
+        );
+
+        return;
+
+    }
+
+
+    const file =
+        prompt(
+            "ZIP dosya yolu:",
+            project.file ||
+            ""
+        );
+
+
+    if(
+        file === null
+    ){
+
+        return;
+
+    }
+
+
+    project.name =
+        name.trim() ||
+        project.name;
+
+
+    project.desc =
+        desc.trim() ||
+        project.desc;
+
+
+    project.engine =
+        engine.trim() ||
+        project.engine;
+
+
+    project.version =
+        version.trim() ||
+        project.version;
+
+
+    project.rating =
+        Number(
+            rating.toFixed(
+                1
+            )
+        );
+
+
+    project.file =
+        file.trim();
+
+
+    state.notifications.unshift({
+
+        text:
+            "Proje güncellendi: " +
+            project.name,
+
+        time:
+            "Şimdi"
+
+    });
+
+
+    state.notifications =
+        state.notifications.slice(
+            0,
+            12
+        );
+
+
+    save();
+
+
+    renderAll();
+
+
+    toast(
+        "Proje güncellendi ✅"
+    );
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function renderProfile(){
+
+    const box =
+        document.getElementById(
+            "profileContent"
+        );
+
+
+    if(!state.user){
+
+        box.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    text-align:center;
+                    padding:45px 25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:2.5rem
+                    "
+                >
+                    👤
+                </div>
+
+                <h3
+                    style="
+                        margin-top:10px
+                    "
+                >
+                    Profil için giriş yap.
+                </h3>
+
+                <p
+                    class="small"
+                    style="
+                        margin-top:6px
+                    "
+                >
+                    XP, Coin ve ilerlemeni görmek için hesabına giriş yap.
+                </p>
+
+                <button
+                    class="
+                        btn
+                        btn-primary
+                    "
+                    style="
+                        margin-top:15px
+                    "
+                    onclick="
+                        openModal(
+                            'loginModal'
+                        )
+                    "
+                >
+                    GİRİŞ YAP
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const xp =
+        Number(
+            state.user.xp ||
+            0
+        );
+
+
+    const level =
+        Math.floor(
+            xp /
+            250
+        ) + 1;
+
+
+    const currentXP =
+        xp %
+        250;
+
+
+    const percent =
+        Math.min(
+            100,
+            (
+                currentXP /
+                250
+            ) *
+            100
+        );
+
+
+    const rank =
+        level >= 10
+            ? "Gold"
+            : level >= 7
+            ? "Silver"
+            : level >= 4
+            ? "Bronze"
+            : "Rookie";
+
+
+    box.innerHTML = `
+
+        <div
+            class="
+                profile-layout
+            "
+        >
+
+
+            <!-- PROFILE CARD -->
+
+            <div class="card">
+
+
+                <div
+                    class="
+                        profile-header
+                    "
+                >
+
+                    <div
+                        class="
+                            big-avatar
+                        "
+                    >
+                        ${initials(
+                            state.user.displayName ||
+                            state.user.username
+                        )}
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            ${escapeHtml(
+                                state.user.displayName ||
+                                state.user.username
+                            )}
+                        </h3>
+
+                        <div
+                            class="small"
+                            style="
+                                margin-top:3px
+                            "
+                        >
+                            @${escapeHtml(
+                                state.user.username
+                            )}
+
+                            ·
+
+                            ${rank}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="small"
+                    style="
+                        margin-top:19px
+                    "
+                >
+                    SEVİYE ${level}
+                    ·
+                    ${currentXP}/250 XP
+                </div>
+
+
+                <div
+                    class="xp-bar"
+                >
+
+                    <span
+                        style="
+                            width:${percent}%
+                        "
+                    ></span>
+
+                </div>
+
+
+                <div
+                    class="
+                        profile-stat-grid
+                    "
+                >
+
+                    <div
+                        class="mini-stat"
+                    >
+
+                        <strong>
+                            ${state.user.xp}
+                        </strong>
+
+                        <span>
+                            XP
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="mini-stat"
+                    >
+
+                        <strong>
+                            ${state.user.coins}
+                        </strong>
+
+                        <span>
+                            Coin
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="mini-stat"
+                    >
+
+                        <strong>
+                            ${state.user.downloads}
+                        </strong>
+
+                        <span>
+                            İndirme
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="mini-stat"
+                    >
+
+                        <strong>
+                            ${state.projects.length}
+                        </strong>
+
+                        <span>
+                            Proje
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="
+                        btn
+                        btn-secondary
+                    "
+                    style="
+                        width:100%;
+                        margin-top:17px
+                    "
+                    onclick="
+                        openSettings()
+                    "
+                >
+                    ⚙️ PROFİL AYARLARI
+                </button>
+
+
+                <button
+                    class="
+                        btn
+                        btn-danger
+                    "
+                    style="
+                        width:100%;
+                        margin-top:8px
+                    "
+                    onclick="
+                        logout()
+                    "
+                >
+                    ÇIKIŞ YAP
+                </button>
+
+            </div>
+
+
+            <!-- ACCOUNT CARD -->
+
+            <div class="card">
+
+
+                <h3>
+                    📊 Hesap Durumu
+                </h3>
+
+
+                <div
+                    style="
+                        margin-top:12px
+                    "
+                >
+
+
+                    <div
+                        class="profile-row"
+                    >
+
+                        <span>
+                            E-posta
+                        </span>
+
+                        <strong
+                            style="
+                                font-size:.73rem;
+                                word-break:break-all
+                            "
+                        >
+                            ${escapeHtml(
+                                state.user.email
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="profile-row"
+                    >
+
+                        <span>
+                            Hesap
+                        </span>
+
+                        <strong>
+                            ${
+                                isAdmin()
+                                    ? "ADMIN"
+                                    : "OYUNCU"
+                            }
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="profile-row"
+                    >
+
+                        <span>
+                            Doğrulama
+                        </span>
+
+                        <strong
+                            style="
+                                color:
+                                    ${
+                                        state.user.verified
+                                            ? "var(--green)"
+                                            : "var(--gold)"
+                                    }
+                            "
+                        >
+                            ${
+                                state.user.verified
+                                    ? "✓ Doğrulandı"
+                                    : "Bekliyor"
+                            }
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="profile-row"
+                    >
+
+                        <span>
+                            Rütbe
+                        </span>
+
+                        <strong>
+                            ${rank}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    class="notice"
+                    style="
+                        margin-top:15px
+                    "
+                >
+
+                    M53G'de projeleri keşfet,
+                    indirerek XP ve Coin kazan,
+                    başarımları aç ve
+                    topluluk anketlerine katıl.
+
+                </div>
+
+
+                ${
+                    !state.user.verified
+
+                    ?
+
+                    `
+
+                    <div
+                        class="notice"
+                        style="
+                            margin-top:10px;
+                            border-color:
+                                rgba(
+                                    245,
+                                    158,
+                                    11,
+                                    .20
+                                );
+                            background:
+                                rgba(
+                                    245,
+                                    158,
+                                    11,
+                                    .07
+                                );
+                            color:
+                                #e5b76b
+                        "
+                    >
+
+                        📧 E-posta doğrulaması
+                        bekleniyor.
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+                ${
+                    isAdmin()
+
+                    ?
+
+                    `
+
+                    <div
+                        class="notice"
+                        style="
+                            margin-top:10px;
+                            border-color:
+                                rgba(
+                                    101,
+                                    255,
+                                    145,
+                                    .20
+                                );
+                            background:
+                                rgba(
+                                    101,
+                                    255,
+                                    145,
+                                    .07
+                                );
+                            color:
+                                var(--green)
+                        "
+                    >
+
+                        👑 Admin yetkin aktif.
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACCOUNT NAV
+========================================================= */
+
+function renderAccount(){
+
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    const area =
+        document.getElementById(
+            "accountArea"
+        );
+
+
+    if(!state.user){
+
+        loginButton.style.display =
+            "inline-flex";
+
+        loginButton.textContent =
+            "Giriş Yap";
+
+
+        area.innerHTML =
+            "";
+
+
+        return;
+
+    }
+
+
+    loginButton.style.display =
+        "none";
+
+
+    area.innerHTML = `
+
+        <div
+            class="profile-chip"
+            onclick="
+                location.hash='profile'
+            "
+            style="
+                cursor:pointer
+            "
+        >
+
+            <div
+                class="avatar"
+            >
+                ${initials(
+                    state.user.displayName ||
+                    state.user.username
+                )}
+            </div>
+
+
+            <span
+                style="
+                    font-size:.75rem;
+                    font-weight:800
+                "
+            >
+                ${escapeHtml(
+                    state.user.displayName ||
+                    state.user.username
+                )}
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const savedTheme =
+    localStorage.getItem(
+        "m53g_theme"
+    );
+
+
+if(savedTheme){
+
+    document.body.setAttribute(
+        "data-theme",
+        savedTheme
+    );
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document.getElementById(
+    "loginButton"
+).onclick=()=>{
+
+    if(state.user){
+
+        location.hash =
+            "profile";
+
+    }else{
+
+        openModal(
+            "loginModal"
+        );
+
+    }
+
+};
+
+
+document.getElementById(
+    "notifyButton"
+).onclick=()=>{
+
+    document
+        .getElementById(
+            "notificationPop"
+        )
+        .classList.toggle(
+            "show"
+        );
+
+};
+
+
+document.getElementById(
+    "closeNotification"
+).onclick=()=>{
+
+    document
+        .getElementById(
+            "notificationPop"
+        )
+        .classList.remove(
+            "show"
+        );
+
+};
+
+
+document.getElementById(
+    "dailyButton"
+).onclick =
+    claimDailyReward;
+
+
+document.getElementById(
+    "menuButton"
+).onclick=()=>{
+
+    document
+        .getElementById(
+            "navLinks"
+        )
+        .classList.toggle(
+            "open"
+        );
+
+};
+
+
+document.getElementById(
+    "projectSearch"
+).oninput =
+    renderProjects;
+
+
+document.getElementById(
+    "projectFilter"
+).onchange =
+    renderProjects;
+
+
+document.getElementById(
+    "projectSort"
+).onchange =
+    renderProjects;
+
+
+/* =========================================================
+   MODAL CLICK OUTSIDE
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".modal"
+    )
+    .forEach(
+        modal=>{
+
+            modal.addEventListener(
+                "click",
+                event=>{
+
+                    if(
+                        event.target ===
+                        modal
+                    ){
+
+                        modal.classList.remove(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   GLOBAL RENDER
+========================================================= */
+
+function renderAll(){
+
+    renderAccount();
+
+    renderProjects();
+
+    renderLeaderboard();
+
+    renderAchievements();
+
+    renderPoll();
+
+    renderAnnouncement();
+
+    renderNotifications();
+
+    renderProfile();
+
+    renderAdmin();
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+renderAll();
+
+</script>
+
+</body>
+</html>
