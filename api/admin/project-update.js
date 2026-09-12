@@ -1,0 +1,21 @@
+const {sql,ensureSchema,getUser,ADMIN_EMAIL}=require('../_lib');
+module.exports=async(req,res)=>{
+  if(req.method!=='PUT') return res.status(405).json({error:'Method not allowed'});
+  await ensureSchema();
+  const user=await getUser(req);
+  if(!user||String(user.email).toLowerCase()!==ADMIN_EMAIL) return res.status(403).json({error:'Admin yetkisi gerekiyor.'});
+  const id=String(req.body?.id||'');
+  const name=String(req.body?.name||'').trim();
+  const description=String(req.body?.description||'').trim();
+  const engine=String(req.body?.engine||'').trim();
+  const version=String(req.body?.version||'1.0').trim();
+  const rating=Number(req.body?.rating??5);
+  const file=String(req.body?.file||'').trim()||null;
+  const category=String(req.body?.category||'game');
+  if(!id||!name||!description||!engine) return res.status(400).json({error:'Eksik alan.'});
+  if(!['game','simulation','software'].includes(category)) return res.status(400).json({error:'Geçersiz kategori.'});
+  if(!Number.isFinite(rating)||rating<0||rating>5) return res.status(400).json({error:'Puan 0-5 arasında olmalı.'});
+  const rows=await sql()`UPDATE projects SET name=${name},description=${description},engine=${engine},version=${version},rating=${rating},file=${file},category=${category} WHERE id=${id} RETURNING *`;
+  if(!rows.length) return res.status(404).json({error:'Proje bulunamadı.'});
+  res.json({project:rows[0]});
+};

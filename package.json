@@ -1,0 +1,14 @@
+{
+  "name":"m53g-v8-backend",
+  "version":"8.0.0",
+  "private":true,
+  "type":"commonjs",
+  "scripts":{"dev":"vercel dev","start":"vercel dev"},
+  "dependencies":{
+    "@neondatabase/serverless":"^1.0.0",
+    "bcryptjs":"^3.0.2",
+    "jsonwebtoken":"^9.0.2",
+    "nodemailer":"^7.0.6"
+  },
+  "engines":{"node":">=24"}
+}
