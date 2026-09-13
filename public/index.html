@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -11,9 +12,6 @@
     name="description"
     content="M53G oyun, proje, topluluk ve geliştirici platformu."
 >
-
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
 
@@ -3053,72 +3051,7 @@ Yeni Hesap
     class="btn btn-primary"
     id="registerSubmit"
 >
-KOD GÖNDER VE DEVAM ET
-</button>
-
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     VERIFY CODE MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="verifyModal"
->
-
-<div class="modal-box">
-
-
-<div class="modal-head">
-
-<h3>
-E-posta Doğrulama
-</h3>
-
-
-<button
-    class="modal-close"
-    onclick="
-        closeModal(
-            'verifyModal'
-        )
-    "
->
-×
-</button>
-
-</div>
-
-
-<div class="form">
-
-<p class="small">
-Lütfen e-posta adresine gönderilen 6 haneli doğrulama kodunu gir.
-</p>
-
-
-<input
-    id="verifyCodeInput"
-    class="input"
-    type="text"
-    placeholder="6 Haneli Kod"
-    maxlength="6"
->
-
-
-<button
-    class="btn btn-primary"
-    id="verifySubmit"
->
-HESABI ONAYLA
+HESAP OLUŞTUR
 </button>
 
 
@@ -3169,9 +3102,8 @@ HESABI ONAYLA
 <p class="small">
 
 Kayıt olduğun e-posta adresini
-girerek yeni geçici şifrenin
-e-posta adresine gönderilmesini
-sağlayabilirsin.
+girerek şifre sıfırlama isteği
+oluşturabilirsin.
 
 </p>
 
@@ -3188,7 +3120,7 @@ sağlayabilirsin.
     class="btn btn-primary"
     id="forgotSubmit"
 >
-YENİ ŞİFRE GÖNDER
+SIFIRLAMA İSTEĞİ OLUŞTUR
 </button>
 
 
@@ -3209,6 +3141,71 @@ GİRİŞE DÖN
 
 
 </div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     RESET INFO MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="resetInfoModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+Şifre Sıfırlama
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'resetInfoModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="notice">
+
+Tek dosyalık sürümde gerçek
+e-posta gönderim servisi bulunmaz.
+
+Buradaki ekran sıfırlama işleminin
+kullanıcı arayüzünü gösterir.
+
+</div>
+
+
+<button
+    class="btn btn-primary"
+    style="
+        width:100%;
+        margin-top:12px
+    "
+    onclick="
+        closeModal(
+            'resetInfoModal'
+        )
+    "
+>
+TAMAM
+</button>
 
 
 </div>
@@ -3312,18 +3309,6 @@ KAYDET
 
 <script>
 
-// EmailJS Ayarları
-const EMAILJS_SERVICE_ID = "service_8ztygfg";
-const EMAILJS_VERIFY_TEMPLATE_ID = "template_verify"; // EmailJS panelindeki doğrulama şablon ID
-const EMAILJS_RESET_TEMPLATE_ID = "template_reset";   // EmailJS panelindeki şifre sıfırlama şablon ID
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";         // EmailJS Public Key'ini buraya yapıştır
-
-(function() {
-    if(EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
-})();
-
 const BIN_ID = '6aa4efffffd5d16053fd1454'; 
 const MASTER_KEY = '$2a$10$/DOw4WZ8pZ7SlmZtSiwAN.NIeaiIL.mrhzRPEhT41xUURTbDmig96';
 
@@ -3371,7 +3356,6 @@ const DEFAULT_STATE = {
 };
 
 let state;
-let pendingUser = null; // Doğrulama bekleyen kullanıcı verisi
 
 try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -3466,206 +3450,50 @@ function renderNav() {
     }
 }
 
-// Olay Dinleyicileri Kurulumu
-document.addEventListener("DOMContentLoaded", () => {
-    // Mobil Menü
-    document.getElementById("menuButton")?.addEventListener("click", () => {
-        document.getElementById("navLinks")?.classList.toggle("open");
-    });
+document.getElementById("loginSubmit").onclick = function() {
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const password = document.getElementById("loginPassword").value;
+    if (!email || !password) return toast("E-posta ve şifre gerekli.");
 
-    // Bildirim Paneli
-    document.getElementById("notifyButton")?.addEventListener("click", () => {
-        document.getElementById("notificationPop")?.classList.toggle("show");
-    });
-
-    document.getElementById("closeNotification")?.addEventListener("click", () => {
-        document.getElementById("notificationPop")?.classList.remove("show");
-    });
-
-    // Günlük Ödül Butonu (Navbar)
-    document.getElementById("dailyButton")?.addEventListener("click", claimDailyReward);
-
-    // Giriş Yap İşlemi
-    document.getElementById("loginSubmit")?.addEventListener("click", () => {
-        const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-        const password = document.getElementById("loginPassword").value;
-        if (!email || !password) return toast("E-posta ve şifre gerekli.");
-
-        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-            state.user = { username: "m53g_admin", displayName: "M53G Admin", email: ADMIN_EMAIL, password: ADMIN_PASSWORD, xp: 9999, coins: 99999, downloads: 0, verified: true, admin: true };
-            save();
-            closeModal("loginModal");
-            renderAll();
-            return toast("Admin girişi başarılı 👑");
-        }
-
-        const user = state.users.find(item => item.email.toLowerCase() === email && item.password === password);
-        if (!user) return toast("E-posta veya şifre hatalı.");
-
-        state.user = { ...user, admin: false };
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        state.user = { username: "m53g_admin", displayName: "M53G Admin", email: ADMIN_EMAIL, password: ADMIN_PASSWORD, xp: 9999, coins: 99999, downloads: 0, verified: true, admin: true };
         save();
         closeModal("loginModal");
         renderAll();
-        toast("Giriş başarılı 👋");
-    });
+        return toast("Admin girişi başarılı 👑");
+    }
 
-    // Kayıt Ol - Kod Gönderme
-    document.getElementById("registerSubmit")?.addEventListener("click", () => {
-        const username = document.getElementById("registerUsername").value.trim();
-        const email = document.getElementById("registerEmail").value.trim().toLowerCase();
-        const password = document.getElementById("registerPassword").value;
+    const user = state.users.find(item => item.email.toLowerCase() === email && item.password === password);
+    if (!user) return toast("E-posta veya şifre hatalı.");
 
-        if (!username || !email || !password) return toast("Tüm alanları doldur.");
-        if (username.length < 3) return toast("Kullanıcı adı en az 3 karakter olmalı.");
-        if (password.length < 8) return toast("Şifre en az 8 karakter olmalı.");
-        if (!email.includes("@")) return toast("Geçerli bir e-posta gir.");
-
-        if (state.users.some(u => u.email.toLowerCase() === email)) {
-            return toast("Bu e-posta adresi zaten kayıtlı.");
-        }
-
-        // 6 Haneli Rastgele Kod Oluştur
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-        pendingUser = {
-            username,
-            displayName: username,
-            email,
-            password,
-            code,
-            xp: 0,
-            coins: 500,
-            downloads: 0,
-            verified: false
-        };
-
-        toast("Doğrulama kodu e-postana gönderiliyor...");
-
-        // EmailJS İle Kodu Mail At
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_VERIFY_TEMPLATE_ID, {
-            to_email: email,
-            code: code
-        }).then(() => {
-            closeModal("registerModal");
-            openModal("verifyModal");
-            toast("6 haneli kod e-postana gönderildi 📩");
-        }).catch((err) => {
-            console.error("EmailJS Hatası:", err);
-            console.log("Üretilen Kod:", code);
-            closeModal("registerModal");
-            openModal("verifyModal");
-            toast("Kod gönderildi 📩");
-        });
-    });
-
-    // Kod Doğrulama İşlemi
-    document.getElementById("verifySubmit")?.addEventListener("click", () => {
-        const inputCode = document.getElementById("verifyCodeInput").value.trim();
-        
-        if (!pendingUser) return toast("Bir hata oluştu, lütfen tekrar deneyin.");
-        
-        if (inputCode !== pendingUser.code) {
-            return toast("Doğrulama kodu yanlış! Lütfen tekrar kontrol et.");
-        }
-
-        // Kod doğruysa kullanıcıyı kaydet ve oturum aç
-        pendingUser.verified = true;
-        delete pendingUser.code;
-
-        state.users.push(pendingUser);
-        state.user = { ...pendingUser, admin: false };
-        pendingUser = null;
-
-        save();
-        closeModal("verifyModal");
-        renderAll();
-        toast("Hesabın doğrulandı ve açıldı 🎉");
-    });
-
-    // Şifre Sıfırlama İsteyi
-    document.getElementById("forgotSubmit")?.addEventListener("click", () => {
-        const email = document.getElementById("forgotEmail").value.trim().toLowerCase();
-        
-        if (!email) return toast("E-posta adresini gir.");
-        
-        const user = state.users.find(u => u.email.toLowerCase() === email);
-        if (!user) return toast("Bu e-posta adresine ait hesap bulunamadı.");
-
-        // Geçici Yeni Şifre Üret
-        const newPassword = "m53g" + Math.floor(1000 + Math.random() * 9000);
-        user.password = newPassword;
-        save();
-
-        toast("Sıfırlama maili gönderiliyor...");
-
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_RESET_TEMPLATE_ID, {
-            to_email: email,
-            new_password: newPassword
-        }).then(() => {
-            closeModal("forgotModal");
-            toast("Yeni şifren e-posta adresine gönderildi 🔑");
-        }).catch((err) => {
-            console.error("EmailJS Hatası:", err);
-            closeModal("forgotModal");
-            toast("Yeni şifren: " + newPassword);
-        });
-    });
-
-    // Admin - Anket Yayınla
-    document.getElementById("publishPollButton")?.addEventListener("click", () => {
-        if (!isAdmin()) return;
-        const q = document.getElementById("newPollQuestion").value.trim();
-        const opts = document.getElementById("newPollOptions").value.trim().split(",");
-        if (!q || opts.length < 2) return toast("Geçerli bir soru ve en az 2 seçenek girin.");
-        
-        state.poll = {
-            question: q,
-            options: opts.map(o => ({ text: o.trim(), votes: 0 })),
-            voters: {}
-        };
-        save();
-        renderPoll();
-        toast("Yeni anket yayınlandı 🗳️");
-    });
-
-    // Admin - Duyuru Yayınla
-    document.getElementById("publishAnnouncementButton")?.addEventListener("click", () => {
-        if (!isAdmin()) return;
-        const msg = document.getElementById("announcementInput").value.trim();
-        if (!msg) return toast("Duyuru metni boş olamaz.");
-
-        state.announcement = {
-            text: msg,
-            author: state.user.displayName || "M53G Admin",
-            time: Date.now()
-        };
-        save();
-        renderAnnouncement();
-        toast("Duyuru yayınlandı 📢");
-    });
-
-    // Profil Ayarlarını Kaydet
-    document.getElementById("settingsSaveButton")?.addEventListener("click", () => {
-        if (!state.user) return;
-        const newName = document.getElementById("settingsName").value.trim();
-        if (newName) {
-            state.user.displayName = newName;
-            save();
-            renderAll();
-            closeModal("settingsModal");
-            toast("Profil güncellendi ✨");
-        }
-    });
-
-    // İlk Yükleme
-    loadGlobalData();
+    state.user = { ...user, admin: false };
+    save();
+    closeModal("loginModal");
     renderAll();
-});
+    toast("Giriş başarılı 👋");
+};
+
+document.getElementById("registerSubmit").onclick = function() {
+    const username = document.getElementById("registerUsername").value.trim();
+    const email = document.getElementById("registerEmail").value.trim().toLowerCase();
+    const password = document.getElementById("registerPassword").value;
+
+    if (!username || !email || !password) return toast("Tüm alanları doldur.");
+    if (username.length < 3) return toast("Kullanıcı adı en az 3 karakter olmalı.");
+    if (password.length < 8) return toast("Şifre en az 8 karakter olmalı.");
+    if (!email.includes("@")) return toast("Geçerli bir e-posta gir.");
+
+    const user = { username, displayName: username, email, password, xp: 0, coins: 500, downloads: 0, verified: true };
+    state.users.push(user);
+    state.user = { ...user, admin: false };
+    save();
+    closeModal("registerModal");
+    renderAll();
+    toast("Hesap oluşturuldu 🎉");
+};
 
 function renderProjects() {
     const grid = document.getElementById("projectsGrid");
-    if (!grid) return;
-
     const search = (document.getElementById("projectSearch")?.value || "").toLowerCase().trim();
     const filter = document.getElementById("projectFilter")?.value || "all";
     const sort = document.getElementById("projectSort")?.value || "new";
@@ -3728,7 +3556,6 @@ function downloadProject(id) {
 
 function renderLeaderboard() {
     const box = document.getElementById("leaderboardList");
-    if (!box) return;
     let users = [...state.users];
     users.sort((a,b) => Number(b.xp || 0) - Number(a.xp || 0));
     box.innerHTML = users.slice(0, 20).map((user, index) => `
@@ -3747,7 +3574,6 @@ function renderLeaderboard() {
 
 function renderAchievements() {
     const box = document.getElementById("achievementGrid");
-    if (!box) return;
     const user = state.user;
     const achievements = [
         { title: "İlk Adım", desc: "M53G hesabı oluştur.", icon: "🚀", unlocked: Boolean(user) },
@@ -3767,21 +3593,14 @@ function renderAchievements() {
 }
 
 function renderPoll() {
-    const pollQ = document.getElementById("pollQuestion");
+    document.getElementById("pollQuestion").textContent = state.poll.question;
     const box = document.getElementById("pollOptions");
-    const adminBox = document.getElementById("adminPollBox");
-
-    if (pollQ) pollQ.textContent = state.poll.question;
-    if (adminBox) adminBox.style.display = isAdmin() ? "block" : "none";
-
-    if (box) {
-        box.innerHTML = state.poll.options.map((option, index) => `
-            <button class="poll-option" onclick="votePoll(${index})">
-                <span>${escapeHtml(option.text)}</span>
-                <strong style="color:var(--blue)">${option.votes} Oy</strong>
-            </button>
-        `).join("");
-    }
+    box.innerHTML = state.poll.options.map((option, index) => `
+        <button class="poll-option" onclick="votePoll(${index})">
+            <span>${escapeHtml(option.text)}</span>
+            <strong style="color:var(--blue)">${option.votes} Oy</strong>
+        </button>
+    `).join("");
 }
 
 function votePoll(index) {
@@ -3793,21 +3612,14 @@ function votePoll(index) {
 
 function renderAnnouncement() {
     const box = document.getElementById("announcementBox");
-    const adminBox = document.getElementById("adminAnnouncementBox");
-
-    if (adminBox) adminBox.style.display = isAdmin() ? "block" : "none";
-
-    if (box) {
-        box.innerHTML = `
-            <strong>${escapeHtml(state.announcement.author)}</strong>
-            <div style="margin-top:7px">${escapeHtml(state.announcement.text)}</div>
-        `;
-    }
+    box.innerHTML = `
+        <strong>${escapeHtml(state.announcement.author)}</strong>
+        <div style="margin-top:7px">${escapeHtml(state.announcement.text)}</div>
+    `;
 }
 
 function renderNotifications() {
     const box = document.getElementById("notificationList");
-    if (!box) return;
     box.innerHTML = state.notifications.map(item => `
         <div class="notification-item">
             <div>${escapeHtml(item.text)}</div>
@@ -3818,74 +3630,20 @@ function renderNotifications() {
 
 function renderProfile() {
     const box = document.getElementById("profileContent");
-    if (!box) return;
-
     if (!state.user) {
         box.innerHTML = `
             <div class="card" style="text-align:center;padding:45px 25px;">
-                <h3>Profilini görüntülemek için giriş yap.</h3>
+                <h3>Profil için giriş yap.</h3>
                 <button class="btn btn-primary" style="margin-top:15px" onclick="openModal('loginModal')">GİRİŞ YAP</button>
             </div>
         `;
         return;
     }
-
-    const xp = Number(state.user.xp || 0);
-    const xpPercent = Math.min(100, Math.floor((xp % 1000) / 10));
-
     box.innerHTML = `
-        <div class="profile-layout">
-            <div class="card">
-                <div class="profile-header">
-                    <div class="big-avatar">${initials(state.user.displayName || state.user.username)}</div>
-                    <div>
-                        <h3 style="font-size:1.3rem;font-weight:900">${escapeHtml(state.user.displayName || state.user.username)}</h3>
-                        <span class="tag" style="margin-top:4px">${state.user.admin ? "👑 Admin" : "🎮 Oyuncu"}</span>
-                    </div>
-                </div>
-
-                <div style="margin-top:20px">
-                    <div style="display:flex;justify-content:space-between;font-size:.8rem;font-weight:700">
-                        <span>XP İlerlemesi</span>
-                        <span style="color:var(--blue)">${xp} XP</span>
-                    </div>
-                    <div class="xp-bar">
-                        <span style="width: ${xpPercent}%"></span>
-                    </div>
-                </div>
-
-                <div class="profile-stat-grid">
-                    <div class="mini-stat">
-                        <strong>🪙 ${Number(state.user.coins || 0)}</strong>
-                        <span>M53G Coins</span>
-                    </div>
-                    <div class="mini-stat">
-                        <strong>📥 ${Number(state.user.downloads || 0)}</strong>
-                        <span>İndirmeler</span>
-                    </div>
-                </div>
-
-                <div style="margin-top:20px;display:flex;gap:10px">
-                    <button class="btn btn-secondary" style="flex:1" onclick="openModal('settingsModal')">⚙️ Ayarlar</button>
-                    <button class="btn btn-danger" style="flex:1" onclick="logout()">🚪 Çıkış Yap</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom:15px">Hesap Bilgileri</h3>
-                <div class="profile-row">
-                    <span>Kullanıcı Adı</span>
-                    <strong>${escapeHtml(state.user.username)}</strong>
-                </div>
-                <div class="profile-row">
-                    <span>E-posta</span>
-                    <strong>${escapeHtml(state.user.email)}</strong>
-                </div>
-                <div class="profile-row">
-                    <span>Durum</span>
-                    <strong style="color:var(--green)">✓ Onaylı Hesap</strong>
-                </div>
-            </div>
+        <div class="card">
+            <h3>${escapeHtml(state.user.displayName || state.user.username)}</h3>
+            <p>XP: ${state.user.xp} | Coins: ${state.user.coins}</p>
+            <button class="btn btn-danger" style="margin-top:10px" onclick="logout()">ÇIKIŞ YAP</button>
         </div>
     `;
 }
@@ -3894,12 +3652,10 @@ function renderAdmin() {
     const adminNav = document.getElementById("adminNav");
     const content = document.getElementById("adminContent");
     const admin = isAdmin();
-    if (adminNav) adminNav.style.display = admin ? "block" : "none";
-
-    if (!content) return;
+    adminNav.style.display = admin ? "block" : "none";
 
     if (!admin) {
-        content.innerHTML = `<div class="card" style="text-align:center;padding:30px;">🔒 Admin paneline erişmek için admin hesabıyla giriş yapın.</div>`;
+        content.innerHTML = `<div class="card" style="text-align:center;padding:30px;">🔒 Admin erişimi gerekli.</div>`;
         return;
     }
 
@@ -3994,6 +3750,11 @@ function claimDailyReward() {
     renderAll();
     toast("+100 Coin +50 XP 🎁");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadGlobalData();
+    renderAll();
+});
 
 </script>
 
