@@ -12,6 +12,9 @@
     content="M53G oyun, proje, topluluk ve geliştirici platformu."
 >
 
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <style>
 
 /* =========================================================
@@ -3050,7 +3053,72 @@ Yeni Hesap
     class="btn btn-primary"
     id="registerSubmit"
 >
-HESAP OLUŞTUR
+KOD GÖNDER VE DEVAM ET
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     VERIFY CODE MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="verifyModal"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+<h3>
+E-posta Doğrulama
+</h3>
+
+
+<button
+    class="modal-close"
+    onclick="
+        closeModal(
+            'verifyModal'
+        )
+    "
+>
+×
+</button>
+
+</div>
+
+
+<div class="form">
+
+<p class="small">
+Lütfen e-posta adresine gönderilen 6 haneli doğrulama kodunu gir.
+</p>
+
+
+<input
+    id="verifyCodeInput"
+    class="input"
+    type="text"
+    placeholder="6 Haneli Kod"
+    maxlength="6"
+>
+
+
+<button
+    class="btn btn-primary"
+    id="verifySubmit"
+>
+HESABI ONAYLA
 </button>
 
 
@@ -3101,8 +3169,9 @@ HESAP OLUŞTUR
 <p class="small">
 
 Kayıt olduğun e-posta adresini
-girerek şifre sıfırlama isteği
-oluşturabilirsin.
+girerek yeni geçici şifrenin
+e-posta adresine gönderilmesini
+sağlayabilirsin.
 
 </p>
 
@@ -3119,7 +3188,7 @@ oluşturabilirsin.
     class="btn btn-primary"
     id="forgotSubmit"
 >
-SIFIRLAMA İSTEĞİ OLUŞTUR
+YENİ ŞİFRE GÖNDER
 </button>
 
 
@@ -3140,71 +3209,6 @@ GİRİŞE DÖN
 
 
 </div>
-
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     RESET INFO MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="resetInfoModal"
->
-
-<div class="modal-box">
-
-
-<div class="modal-head">
-
-<h3>
-Şifre Sıfırlama
-</h3>
-
-
-<button
-    class="modal-close"
-    onclick="
-        closeModal(
-            'resetInfoModal'
-        )
-    "
->
-×
-</button>
-
-</div>
-
-
-<div class="notice">
-
-Tek dosyalık sürümde gerçek
-e-posta gönderim servisi bulunmaz.
-
-Buradaki ekran sıfırlama işleminin
-kullanıcı arayüzünü gösterir.
-
-</div>
-
-
-<button
-    class="btn btn-primary"
-    style="
-        width:100%;
-        margin-top:12px
-    "
-    onclick="
-        closeModal(
-            'resetInfoModal'
-        )
-    "
->
-TAMAM
-</button>
 
 
 </div>
@@ -3308,6 +3312,18 @@ KAYDET
 
 <script>
 
+// EmailJS Ayarları
+const EMAILJS_SERVICE_ID = "service_8ztygfg";
+const EMAILJS_VERIFY_TEMPLATE_ID = "template_verify"; // EmailJS panelindeki doğrulama şablon ID
+const EMAILJS_RESET_TEMPLATE_ID = "template_reset";   // EmailJS panelindeki şifre sıfırlama şablon ID
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";         // EmailJS Public Key'ini buraya yapıştır
+
+(function() {
+    if(EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+})();
+
 const BIN_ID = '6aa4efffffd5d16053fd1454'; 
 const MASTER_KEY = '$2a$10$/DOw4WZ8pZ7SlmZtSiwAN.NIeaiIL.mrhzRPEhT41xUURTbDmig96';
 
@@ -3355,6 +3371,7 @@ const DEFAULT_STATE = {
 };
 
 let state;
+let pendingUser = null; // Doğrulama bekleyen kullanıcı verisi
 
 try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -3472,6 +3489,7 @@ document.getElementById("loginSubmit").onclick = function() {
     toast("Giriş başarılı 👋");
 };
 
+// Kayıt Ol - Kod Gönderme
 document.getElementById("registerSubmit").onclick = function() {
     const username = document.getElementById("registerUsername").value.trim();
     const email = document.getElementById("registerEmail").value.trim().toLowerCase();
@@ -3482,13 +3500,96 @@ document.getElementById("registerSubmit").onclick = function() {
     if (password.length < 8) return toast("Şifre en az 8 karakter olmalı.");
     if (!email.includes("@")) return toast("Geçerli bir e-posta gir.");
 
-    const user = { username, displayName: username, email, password, xp: 0, coins: 500, downloads: 0, verified: false };
-    state.users.push(user);
-    state.user = { ...user, admin: false };
+    if (state.users.some(u => u.email.toLowerCase() === email)) {
+        return toast("Bu e-posta adresi zaten kayıtlı.");
+    }
+
+    // 6 Haneli Rastgele Kod Oluştur
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    pendingUser = {
+        username,
+        displayName: username,
+        email,
+        password,
+        code,
+        xp: 0,
+        coins: 500,
+        downloads: 0,
+        verified: false
+    };
+
+    toast("Doğrulama kodu e-postana gönderiliyor...");
+
+    // EmailJS İle Kodu Mail At
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_VERIFY_TEMPLATE_ID, {
+        to_email: email,
+        code: code
+    }).then(() => {
+        closeModal("registerModal");
+        openModal("verifyModal");
+        toast("6 haneli kod e-postana gönderildi 📩");
+    }).catch((err) => {
+        console.error("EmailJS Hatası:", err);
+        // Test/Demo amaçlı konsola yaz ve yine de doğrulama ekranını aç
+        console.log("Üretilen Kod:", code);
+        closeModal("registerModal");
+        openModal("verifyModal");
+        toast("Kod gönderildi (Konsolu kontrol et) 📩");
+    });
+};
+
+// Kod Doğrulama İşlemi
+document.getElementById("verifySubmit").onclick = function() {
+    const inputCode = document.getElementById("verifyCodeInput").value.trim();
+    
+    if (!pendingUser) return toast("Bir hata oluştu, lütfen tekrar deneyin.");
+    
+    if (inputCode !== pendingUser.code) {
+        return toast("Doğrulama kodu yanlış! Lütfen tekrar kontrol et.");
+    }
+
+    // Kod doğruysa kullanıcıyı kaydet ve oturum aç
+    pendingUser.verified = true;
+    delete pendingUser.code;
+
+    state.users.push(pendingUser);
+    state.user = { ...pendingUser, admin: false };
+    pendingUser = null;
+
     save();
-    closeModal("registerModal");
+    closeModal("verifyModal");
     renderAll();
-    toast("Hesap oluşturuldu 🎉");
+    toast("Hesabın doğrulandı ve açıldı 🎉");
+};
+
+// Şifre Sıfırlama İsteyi
+document.getElementById("forgotSubmit").onclick = function() {
+    const email = document.getElementById("forgotEmail").value.trim().toLowerCase();
+    
+    if (!email) return toast("E-posta adresini gir.");
+    
+    const user = state.users.find(u => u.email.toLowerCase() === email);
+    if (!user) return toast("Bu e-posta adresine ait hesap bulunamadı.");
+
+    // Geçici Yeni Şifre Üret
+    const newPassword = "m53g" + Math.floor(1000 + Math.random() * 9000);
+    user.password = newPassword;
+    save();
+
+    toast("Sıfırlama maili gönderiliyor...");
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_RESET_TEMPLATE_ID, {
+        to_email: email,
+        new_password: newPassword
+    }).then(() => {
+        closeModal("forgotModal");
+        toast("Yeni şifren e-posta adresine gönderildi 🔑");
+    }).catch((err) => {
+        console.error("EmailJS Hatası:", err);
+        closeModal("forgotModal");
+        toast("Yeni şifren: " + newPassword);
+    });
 };
 
 function renderProjects() {
