@@ -3148,70 +3148,11 @@ GİRİŞE DÖN
 </div>
 
 
-<!-- =========================================================
-     RESET INFO MODAL
-========================================================= -->
+<!-- EMAIL VERIFICATION MODAL -->
+<div class="modal" id="verifyModal"><div class="modal-box"><div class="modal-head"><h3>E-posta Doğrulama</h3><button class="modal-close" onclick="closeModal('verifyModal')">×</button></div><div class="form"><p class="small">E-posta adresine gönderdiğimiz 6 haneli kodu gir.</p><input id="verifyCode" class="input" inputmode="numeric" maxlength="6" placeholder="6 haneli kod"><button class="btn btn-primary" id="verifySubmit">DOĞRULA</button><button class="btn btn-secondary" id="resendCodeButton">KODU TEKRAR GÖNDER</button></div></div></div>
 
-<div
-    class="modal"
-    id="resetInfoModal"
->
-
-<div class="modal-box">
-
-
-<div class="modal-head">
-
-<h3>
-Şifre Sıfırlama
-</h3>
-
-
-<button
-    class="modal-close"
-    onclick="
-        closeModal(
-            'resetInfoModal'
-        )
-    "
->
-×
-</button>
-
-</div>
-
-
-<div class="notice">
-
-Tek dosyalık sürümde gerçek
-e-posta gönderim servisi bulunmaz.
-
-Buradaki ekran sıfırlama işleminin
-kullanıcı arayüzünü gösterir.
-
-</div>
-
-
-<button
-    class="btn btn-primary"
-    style="
-        width:100%;
-        margin-top:12px
-    "
-    onclick="
-        closeModal(
-            'resetInfoModal'
-        )
-    "
->
-TAMAM
-</button>
-
-
-</div>
-
-</div>
-
+<!-- RESET PASSWORD MODAL -->
+<div class="modal" id="resetPasswordModal"><div class="modal-box"><div class="modal-head"><h3>Yeni Şifre</h3><button class="modal-close" onclick="closeModal('resetPasswordModal')">×</button></div><div class="form"><p class="small">Yeni şifreni belirle.</p><input id="resetPassword" class="input" type="password" placeholder="Yeni şifre"><input id="resetPasswordConfirm" class="input" type="password" placeholder="Yeni şifre tekrar"><button class="btn btn-primary" id="resetPasswordSubmit">ŞİFREYİ DEĞİŞTİR</button></div></div></div>
 
 <!-- =========================================================
      SETTINGS MODAL
@@ -3309,188 +3250,22 @@ KAYDET
 
 <script>
 
-const BIN_ID = '6aa4efffffd5d16053fd1454'; 
-const MASTER_KEY = '$2a$10$/DOw4WZ8pZ7SlmZtSiwAN.NIeaiIL.mrhzRPEhT41xUURTbDmig96';
-
-const ADMIN_EMAIL = "m53g@gmail.com";
-const ADMIN_PASSWORD = "m53g2026";
-const STORAGE_KEY = "m53g_v7_state";
-
-const DEFAULT_STATE = {
-    user: null,
-    users: [
-        { username: "ProGamer", displayName: "ProGamer", email: "progamer@m53g.local", password: "demo1234", xp: 5200, coins: 1400, downloads: 18, verified: true },
-        { username: "CodeMaster", displayName: "CodeMaster", email: "codemaster@m53g.local", password: "demo1234", xp: 4100, coins: 950, downloads: 13, verified: true },
-        { username: "PixelArtist", displayName: "PixelArtist", email: "pixel@m53g.local", password: "demo1234", xp: 3200, coins: 600, downloads: 7, verified: true },
-        { username: "NightCoder", displayName: "NightCoder", email: "night@m53g.local", password: "demo1234", xp: 2850, coins: 450, downloads: 5, verified: true },
-        { username: "GameDevX", displayName: "GameDevX", email: "gamedev@m53g.local", password: "demo1234", xp: 1900, coins: 350, downloads: 4, verified: true }
-    ],
-    projects: [
-        { id: "p1", name: "Kedi Sürüş Oyunu", desc: "M53G için hazırlanan eğlenceli araba sürüş oyunu.", category: "game", engine: "HTML5", playType: "html", version: "1.0", rating: 4.8, downloads: 12, file: "https://example.com/kedi-surus" },
-        { id: "p2", name: "M53G Tycoon", desc: "Tesislerini geliştir, gelirini büyüt ve yeni alanlar aç.", category: "simulation", engine: "HTML5", playType: "html", version: "1.0", rating: 4.7, downloads: 9, file: "https://example.com/tycoon" },
-        { id: "p3", name: "M53G Arena", desc: "Yerel iki kişilik hızlı arena aksiyon oyunu.", category: "game", engine: "HTML5", playType: "diger", version: "1.0", rating: 4.9, downloads: 15, file: "downloads/m53g_arena.zip" },
-        { id: "p4", name: "M53G Developer Tools", desc: "Geliştiriciler için web tabanlı yardımcı araçlar.", category: "software", engine: "Web", playType: "diger", version: "1.5", rating: 4.6, downloads: 4, file: "" }
-    ],
-    poll: {
-        question: "Sıradaki M53G projesi ne olsun?",
-        options: [
-            { text: "3D Racing", votes: 19 },
-            { text: "Korku Oyunu", votes: 12 },
-            { text: "2D Platformer", votes: 9 },
-            { text: "Tycoon", votes: 7 }
-        ],
-        voters: {}
-    },
-    announcement: {
-        text: "M53G V7 geliştirme süreci aktif. Yeni projeler yakında.",
-        author: "M53G Admin",
-        time: Date.now()
-    },
-    notifications: [
-        { text: "M53G V7 aktif.", time: "Şimdi" },
-        { text: "Yeni proje yönetim sistemi eklendi.", time: "Bugün" },
-        { text: "Haftalık topluluk anketi aktif.", time: "Bugün" },
-        { text: "Yeni başarımlar eklendi.", time: "Dün" }
-    ],
-    downloads: 49
-};
-
-let state;
-
-try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    state = saved ? { ...structuredClone(DEFAULT_STATE), ...JSON.parse(saved) } : structuredClone(DEFAULT_STATE);
-} catch (error) {
-    state = structuredClone(DEFAULT_STATE);
-}
-
-function save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    saveGlobalData(state);
-}
-
-async function loadGlobalData() {
-    try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-            headers: { 'X-Master-Key': MASTER_KEY }
-        });
-        const result = await res.json();
-        if (result.record && result.record.projects) {
-            state.projects = result.record.projects || state.projects;
-            state.announcement = result.record.announcement || state.announcement;
-            state.poll = result.record.poll || state.poll;
-            renderAll();
-        }
-    } catch (err) {
-        console.error("Veri çekilemedi:", err);
-    }
-}
-
-async function saveGlobalData(newData) {
-    try {
-        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': MASTER_KEY
-            },
-            body: JSON.stringify(newData)
-        });
-    } catch (err) {
-        console.error("Bulut kayıt hatası:", err);
-    }
-}
-
-function currentUser() { return state.user; }
-function isAdmin() { return Boolean(state.user && state.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()); }
-function initials(name) { return (name || "M53G").trim().split(/\s+/).slice(0, 2).map(item => item[0]).join("").toUpperCase(); }
-function escapeHtml(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-    }[char]));
-}
-
-function openModal(id) { document.getElementById(id).classList.add("active"); }
-function closeModal(id) { document.getElementById(id).classList.remove("active"); }
-
-function toast(message) {
-    const box = document.getElementById("toast");
-    box.textContent = message;
-    box.classList.add("show");
-    clearTimeout(window.m53gToast);
-    window.m53gToast = setTimeout(() => { box.classList.remove("show"); }, 2700);
-}
-
-function renderAll() {
-    renderProjects();
-    renderLeaderboard();
-    renderAchievements();
-    renderPoll();
-    renderAnnouncement();
-    renderNotifications();
-    renderProfile();
-    renderAdmin();
-    renderNav();
-}
-
-function renderNav() {
-    const accountArea = document.getElementById("accountArea");
-    const loginBtn = document.getElementById("loginButton");
-    if (state.user) {
-        loginBtn.style.display = "none";
-        accountArea.innerHTML = `
-            <div class="profile-chip">
-                <div class="avatar">${initials(state.user.displayName || state.user.username)}</div>
-                <span style="font-size:.8rem;font-weight:700">${escapeHtml(state.user.displayName || state.user.username)}</span>
-            </div>
-        `;
-    } else {
-        loginBtn.style.display = "inline-flex";
-        accountArea.innerHTML = "";
-    }
-}
-
-document.getElementById("loginSubmit").onclick = function() {
-    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-    const password = document.getElementById("loginPassword").value;
-    if (!email || !password) return toast("E-posta ve şifre gerekli.");
-
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-        state.user = { username: "m53g_admin", displayName: "M53G Admin", email: ADMIN_EMAIL, password: ADMIN_PASSWORD, xp: 9999, coins: 99999, downloads: 0, verified: true, admin: true };
-        save();
-        closeModal("loginModal");
-        renderAll();
-        return toast("Admin girişi başarılı 👑");
-    }
-
-    const user = state.users.find(item => item.email.toLowerCase() === email && item.password === password);
-    if (!user) return toast("E-posta veya şifre hatalı.");
-
-    state.user = { ...user, admin: false };
-    save();
-    closeModal("loginModal");
-    renderAll();
-    toast("Giriş başarılı 👋");
-};
-
-document.getElementById("registerSubmit").onclick = function() {
-    const username = document.getElementById("registerUsername").value.trim();
-    const email = document.getElementById("registerEmail").value.trim().toLowerCase();
-    const password = document.getElementById("registerPassword").value;
-
-    if (!username || !email || !password) return toast("Tüm alanları doldur.");
-    if (username.length < 3) return toast("Kullanıcı adı en az 3 karakter olmalı.");
-    if (password.length < 8) return toast("Şifre en az 8 karakter olmalı.");
-    if (!email.includes("@")) return toast("Geçerli bir e-posta gir.");
-
-    const user = { username, displayName: username, email, password, xp: 0, coins: 500, downloads: 0, verified: true };
-    state.users.push(user);
-    state.user = { ...user, admin: false };
-    save();
-    closeModal("registerModal");
-    renderAll();
-    toast("Hesap oluşturuldu 🎉");
-};
+<script>
+const STORAGE_KEY="m53g_v8_state";
+const DEFAULT_STATE={user:null,users:[{username:"ProGamer",displayName:"ProGamer",email:"progamer@m53g.local",xp:5200,coins:1400,downloads:18,verified:true},{username:"CodeMaster",displayName:"CodeMaster",email:"codemaster@m53g.local",xp:4100,coins:950,downloads:13,verified:true},{username:"PixelArtist",displayName:"PixelArtist",email:"pixel@m53g.local",xp:3200,coins:600,downloads:7,verified:true},{username:"NightCoder",displayName:"NightCoder",email:"night@m53g.local",xp:2850,coins:450,downloads:5,verified:true},{username:"GameDevX",displayName:"GameDevX",email:"gamedev@m53g.local",xp:1900,coins:350,downloads:4,verified:true}],projects:[],poll:{question:"Sıradaki M53G projesi ne olsun?",options:[{text:"3D Racing",votes:19},{text:"Korku Oyunu",votes:12},{text:"2D Platformer",votes:9},{text:"Tycoon",votes:7}],voters:{}},announcement:{text:"M53G V8 aktif.",author:"M53G Admin",time:Date.now()},notifications:[{text:"M53G V8 aktif.",time:"Şimdi"}],downloads:49};
+let state;try{const saved=localStorage.getItem(STORAGE_KEY);state=saved?{...structuredClone(DEFAULT_STATE),...JSON.parse(saved)}:structuredClone(DEFAULT_STATE)}catch{state=structuredClone(DEFAULT_STATE)}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+async function api(path,options={}){const res=await fetch("/api"+path,{credentials:"include",...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});let data={};try{data=await res.json()}catch{}if(!res.ok)throw Object.assign(new Error(data.error||"İşlem başarısız."),{data,status:res.status});return data}
+function currentUser(){return state.user}function isAdmin(){return !!state.user?.admin}function initials(n){return(n||"M53G").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}function openModal(id){document.getElementById(id).classList.add("active")}function closeModal(id){document.getElementById(id).classList.remove("active")}function toast(m){const b=document.getElementById("toast");b.textContent=m;b.classList.add("show");clearTimeout(window.m53gToast);window.m53gToast=setTimeout(()=>b.classList.remove("show"),2700)}
+function renderAll(){renderProjects();renderLeaderboard();renderAchievements();renderPoll();renderAnnouncement();renderNotifications();renderProfile();renderAdmin();renderNav()}function renderNav(){const a=document.getElementById("accountArea"),b=document.getElementById("loginButton");if(state.user){b.style.display="none";a.innerHTML=`<div class="profile-chip"><div class="avatar">${initials(state.user.displayName||state.user.username)}</div><span style="font-size:.8rem;font-weight:700">${escapeHtml(state.user.displayName||state.user.username)}</span></div>`}else{b.style.display="inline-flex";a.innerHTML=""}}
+let pendingVerificationEmail="";
+document.getElementById("loginSubmit").onclick=async()=>{const email=document.getElementById("loginEmail").value.trim().toLowerCase(),password=document.getElementById("loginPassword").value;if(!email||!password)return toast("E-posta ve şifre gerekli.");try{const d=await api("/auth/login",{method:"POST",body:JSON.stringify({email,password})});state.user=d.user;save();closeModal("loginModal");renderAll();toast("Giriş başarılı 👋")}catch(e){if(e.data?.requiresVerification){pendingVerificationEmail=e.data.email;closeModal("loginModal");openModal("verifyModal")}toast(e.message)}};
+document.getElementById("registerSubmit").onclick=async()=>{const username=document.getElementById("registerUsername").value.trim(),email=document.getElementById("registerEmail").value.trim().toLowerCase(),password=document.getElementById("registerPassword").value;if(!username||!email||!password)return toast("Tüm alanları doldur.");if(username.length<3)return toast("Kullanıcı adı en az 3 karakter olmalı.");if(password.length<8)return toast("Şifre en az 8 karakter olmalı.");try{await api("/auth/register",{method:"POST",body:JSON.stringify({username,email,password})});pendingVerificationEmail=email;closeModal("registerModal");document.getElementById("verifyCode").value="";openModal("verifyModal");toast("Doğrulama kodu e-postana gönderildi 📩")}catch(e){toast(e.message)}};
+document.getElementById("verifySubmit").onclick=async()=>{const code=document.getElementById("verifyCode").value.trim();if(!pendingVerificationEmail)return toast("Doğrulanacak hesap bulunamadı.");try{const d=await api("/auth/verify-email",{method:"POST",body:JSON.stringify({email:pendingVerificationEmail,code})});state.user=d.user;if(!state.users.some(u=>u.email.toLowerCase()===d.user.email.toLowerCase()))state.users.push(d.user);save();closeModal("verifyModal");renderAll();toast("E-posta doğrulandı 🎉")}catch(e){toast(e.message)}};
+document.getElementById("resendCodeButton").onclick=async()=>{try{await api("/auth/resend-code",{method:"POST",body:JSON.stringify({email:pendingVerificationEmail})});toast("Yeni doğrulama kodu gönderildi 📩")}catch(e){toast(e.message)}};
+document.getElementById("forgotSubmit").onclick=async()=>{const email=document.getElementById("forgotEmail").value.trim().toLowerCase();if(!email)return toast("E-posta adresini gir.");try{await api("/auth/forgot-password",{method:"POST",body:JSON.stringify({email})});closeModal("forgotModal");toast("Eğer hesap varsa sıfırlama bağlantısı e-postana gönderildi 📩")}catch(e){toast(e.message)}};
+document.getElementById("resetPasswordSubmit").onclick=async()=>{const token=new URLSearchParams(location.search).get("reset"),password=document.getElementById("resetPassword").value,confirm=document.getElementById("resetPasswordConfirm").value;if(!token)return toast("Sıfırlama bağlantısı bulunamadı.");if(password.length<8)return toast("Şifre en az 8 karakter olmalı.");if(password!==confirm)return toast("Şifreler eşleşmiyor.");try{const d=await api("/auth/reset-password",{method:"POST",body:JSON.stringify({token,password})});state.user=d.user;save();history.replaceState({},"",location.pathname);closeModal("resetPasswordModal");renderAll();toast("Şifren değiştirildi 🎉")}catch(e){toast(e.message)}};
+async function restoreSession(){try{const d=await api("/auth/me");if(d.user){state.user=d.user;save()}}catch{}}
 
 function renderProjects() {
     const grid = document.getElementById("projectsGrid");
@@ -3735,12 +3510,7 @@ function adminDeleteProject(id) {
     toast("Proje silindi 🗑️");
 }
 
-function logout() {
-    state.user = null;
-    save();
-    renderAll();
-    toast("Çıkış yapıldı.");
-}
+async function logout() { try { await api('/auth/logout',{method:'POST',body:'{}'}); } catch {} state.user=null; save(); renderAll(); toast("Çıkış yapıldı."); }
 
 function claimDailyReward() {
     if (!state.user) return openModal("loginModal");
@@ -3751,10 +3521,7 @@ function claimDailyReward() {
     toast("+100 Coin +50 XP 🎁");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadGlobalData();
-    renderAll();
-});
+document.addEventListener("DOMContentLoaded", async () => { await restoreSession(); renderAll(); if(new URLSearchParams(location.search).get('reset')) openModal('resetPasswordModal'); });
 
 </script>
 
