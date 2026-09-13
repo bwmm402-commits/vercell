@@ -1,0 +1,20 @@
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+// Mevcut API rotalarını buraya ekle
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API sorunsuz çalışıyor!' });
+});
+
+// Örnek: Diğer dosyalarındaki rotaları buraya taşıyorsun
+app.post('/api/login', (req, res) => {
+  // Login kodların
+});
+
+app.post('/api/register', (req, res) => {
+  // Register kodların
+});
+
+module.exports = app;
