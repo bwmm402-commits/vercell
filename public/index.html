@@ -3249,8 +3249,6 @@ KAYDET
 ========================================================= -->
 
 <script>
-
-<script>
 const STORAGE_KEY="m53g_v8_state";
 const DEFAULT_STATE={user:null,users:[{username:"ProGamer",displayName:"ProGamer",email:"progamer@m53g.local",xp:5200,coins:1400,downloads:18,verified:true},{username:"CodeMaster",displayName:"CodeMaster",email:"codemaster@m53g.local",xp:4100,coins:950,downloads:13,verified:true},{username:"PixelArtist",displayName:"PixelArtist",email:"pixel@m53g.local",xp:3200,coins:600,downloads:7,verified:true},{username:"NightCoder",displayName:"NightCoder",email:"night@m53g.local",xp:2850,coins:450,downloads:5,verified:true},{username:"GameDevX",displayName:"GameDevX",email:"gamedev@m53g.local",xp:1900,coins:350,downloads:4,verified:true}],projects:[],poll:{question:"Sıradaki M53G projesi ne olsun?",options:[{text:"3D Racing",votes:19},{text:"Korku Oyunu",votes:12},{text:"2D Platformer",votes:9},{text:"Tycoon",votes:7}],voters:{}},announcement:{text:"M53G V8 aktif.",author:"M53G Admin",time:Date.now()},notifications:[{text:"M53G V8 aktif.",time:"Şimdi"}],downloads:49};
 let state;try{const saved=localStorage.getItem(STORAGE_KEY);state=saved?{...structuredClone(DEFAULT_STATE),...JSON.parse(saved)}:structuredClone(DEFAULT_STATE)}catch{state=structuredClone(DEFAULT_STATE)}
