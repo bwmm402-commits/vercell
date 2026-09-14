@@ -3309,102 +3309,108 @@ KAYDET
 
 <script>
 
-const API_BASE = "/api";
+const BIN_ID = '6aa4efffffd5d16053fd1454'; 
+const MASTER_KEY = '$2a$10$/DOw4WZ8pZ7SlmZtSiwAN.NIeaiIL.mrhzRPEhT41xUURTbDmig96';
+
+const ADMIN_EMAIL = "m53g@gmail.com";
+const ADMIN_PASSWORD = "m53g2026";
+const STORAGE_KEY = "m53g_v7_state";
 
 const DEFAULT_STATE = {
     user: null,
-    users: [],
+    users: [
+        { username: "ProGamer", displayName: "ProGamer", email: "progamer@m53g.local", password: "demo1234", xp: 5200, coins: 1400, downloads: 18, verified: true },
+        { username: "CodeMaster", displayName: "CodeMaster", email: "codemaster@m53g.local", password: "demo1234", xp: 4100, coins: 950, downloads: 13, verified: true },
+        { username: "PixelArtist", displayName: "PixelArtist", email: "pixel@m53g.local", password: "demo1234", xp: 3200, coins: 600, downloads: 7, verified: true },
+        { username: "NightCoder", displayName: "NightCoder", email: "night@m53g.local", password: "demo1234", xp: 2850, coins: 450, downloads: 5, verified: true },
+        { username: "GameDevX", displayName: "GameDevX", email: "gamedev@m53g.local", password: "demo1234", xp: 1900, coins: 350, downloads: 4, verified: true }
+    ],
     projects: [
-        { id:"p1", name:"Kedi Sürüş Oyunu", desc:"M53G için hazırlanan eğlenceli araba sürüş oyunu.", category:"game", engine:"HTML5", version:"1.0", rating:4.8, downloads:0, file:"downloads/kedi_surus_oyunu.zip", playType:"html" },
-        { id:"p2", name:"M53G Tycoon", desc:"Tesislerini geliştir, gelirini büyüt ve yeni alanlar aç.", category:"simulation", engine:"HTML5", version:"1.0", rating:4.7, downloads:0, file:"downloads/m53g_tycoon.zip", playType:"download" },
-        { id:"p3", name:"M53G Arena", desc:"Yerel iki kişilik hızlı arena aksiyon oyunu.", category:"game", engine:"HTML5", version:"1.0", rating:4.9, downloads:0, file:"downloads/m53g_arena.zip", playType:"download" },
-        { id:"p4", name:"M53G Developer Tools", desc:"Geliştiriciler için pratik M53G araçları.", category:"software", engine:"HTML5", version:"1.0", rating:4.9, downloads:0, file:"downloads/m53g_developer_tools.zip", playType:"download" }
+        { id: "p1", name: "Kedi Sürüş Oyunu", desc: "M53G için hazırlanan eğlenceli araba sürüş oyunu.", category: "game", engine: "HTML5", playType: "html", version: "1.0", rating: 4.8, downloads: 12, file: "https://example.com/kedi-surus" },
+        { id: "p2", name: "M53G Tycoon", desc: "Tesislerini geliştir, gelirini büyüt ve yeni alanlar aç.", category: "simulation", engine: "HTML5", playType: "html", version: "1.0", rating: 4.7, downloads: 9, file: "https://example.com/tycoon" },
+        { id: "p3", name: "M53G Arena", desc: "Yerel iki kişilik hızlı arena aksiyon oyunu.", category: "game", engine: "HTML5", playType: "diger", version: "1.0", rating: 4.9, downloads: 15, file: "downloads/m53g_arena.zip" },
+        { id: "p4", name: "M53G Developer Tools", desc: "Geliştiriciler için web tabanlı yardımcı araçlar.", category: "software", engine: "Web", playType: "diger", version: "1.5", rating: 4.6, downloads: 4, file: "" }
     ],
     poll: {
-        question:"Sıradaki M53G projesi ne olsun?",
-        options:[
-            {text:"3D Racing", votes:0},
-            {text:"Korku Oyunu", votes:0},
-            {text:"2D Platformer", votes:0}
+        question: "Sıradaki M53G projesi ne olsun?",
+        options: [
+            { text: "3D Racing", votes: 19 },
+            { text: "Korku Oyunu", votes: 12 },
+            { text: "2D Platformer", votes: 9 },
+            { text: "Tycoon", votes: 7 }
         ],
-        voters:{}
+        voters: {}
     },
     announcement: {
-        text:"M53G platformuna hoş geldin.",
-        author:"M53G Admin",
-        time:Date.now()
+        text: "M53G V7 geliştirme süreci aktif. Yeni projeler yakında.",
+        author: "M53G Admin",
+        time: Date.now()
     },
-    notifications: [],
-    downloads: 0
+    notifications: [
+        { text: "M53G V7 aktif.", time: "Şimdi" },
+        { text: "Yeni proje yönetim sistemi eklendi.", time: "Bugün" },
+        { text: "Haftalık topluluk anketi aktif.", time: "Bugün" },
+        { text: "Yeni başarımlar eklendi.", time: "Dün" }
+    ],
+    downloads: 49
 };
 
-let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+let state;
 
-async function api(path, options = {}) {
-    const res = await fetch(API_BASE + path, {
-        credentials: "include",
-        headers: { "Content-Type": "application/json", ...(options.headers || {}) },
-        ...options
-    });
-
-    let data = {};
-    try { data = await res.json(); } catch (_) {}
-
-    if (!res.ok) {
-        throw new Error(data.error || "Sunucu hatası.");
-    }
-    return data;
+function cloneDefaultState() {
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
 }
 
-async function refreshState(showError = true) {
+try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    const parsed = saved ? JSON.parse(saved) : null;
+    state = parsed && typeof parsed === "object"
+        ? { ...cloneDefaultState(), ...parsed }
+        : cloneDefaultState();
+} catch (error) {
+    console.warn("Yerel kayıt okunamadı, varsayılan veriler kullanılıyor:", error);
+    state = cloneDefaultState();
+}
+
+function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    saveGlobalData(state);
+}
+
+async function loadGlobalData() {
     try {
-        const data = await api("/state");
-        const incoming = data.state && typeof data.state === "object" ? data.state : {};
-        state = {
-            ...JSON.parse(JSON.stringify(DEFAULT_STATE)),
-            ...incoming,
-            user: data.user || incoming.user || null
-        };
-
-        if (!Array.isArray(state.projects) || state.projects.length === 0) {
-            state.projects = JSON.parse(JSON.stringify(DEFAULT_STATE.projects));
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        const result = await res.json();
+        if (result.record && result.record.projects) {
+            state.projects = result.record.projects || state.projects;
+            state.announcement = result.record.announcement || state.announcement;
+            state.poll = result.record.poll || state.poll;
+            renderAll();
         }
-
-        state.projects = state.projects.map(p => ({
-            ...p,
-            desc: p.desc ?? p.description ?? "",
-            category: p.category ?? "game",
-            engine: p.engine ?? "HTML5",
-            version: p.version ?? "1.0",
-            rating: Number(p.rating ?? 5),
-            downloads: Number(p.downloads ?? 0)
-        }));
-
-        if (!state.poll || !Array.isArray(state.poll.options)) {
-            state.poll = JSON.parse(JSON.stringify(DEFAULT_STATE.poll));
-        }
-        if (!state.announcement || typeof state.announcement !== "object") {
-            state.announcement = JSON.parse(JSON.stringify(DEFAULT_STATE.announcement));
-        }
-        if (!Array.isArray(state.notifications)) state.notifications = [];
-        state.downloads = Number(state.downloads || 0);
-
-        renderAll();
-        return true;
     } catch (err) {
-        console.error("Backend bağlantısı:", err);
-        // Mevcut ekrandaki verileri koru; backend hatası sayfayı boşaltmasın.
-        if (showError) toast(err.message || "Backend'e bağlanılamadı.");
-        return false;
+        console.error("Veri çekilemedi:", err);
     }
 }
 
-// Veriler artık localStorage'da tutulmuyor.
-// Değişiklikler ilgili backend endpoint'ine gönderiliyor.
-function save() {}
+async function saveGlobalData(newData) {
+    try {
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': MASTER_KEY
+            },
+            body: JSON.stringify(newData)
+        });
+    } catch (err) {
+        console.error("Bulut kayıt hatası:", err);
+    }
+}
 
 function currentUser() { return state.user; }
-function isAdmin() { return Boolean(state.user && state.user.admin); }
+function isAdmin() { return Boolean(state.user && state.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()); }
 function initials(name) { return (name || "M53G").trim().split(/\s+/).slice(0, 2).map(item => item[0]).join("").toUpperCase(); }
 function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -3459,13 +3465,8 @@ function renderProjects() {
     const filter = document.getElementById("projectFilter")?.value || "all";
     const sort = document.getElementById("projectSort")?.value || "new";
 
-    let projects = (Array.isArray(state.projects) ? state.projects : []).filter(project => {
-        const text = (
-            (project.name || "") + " " +
-            (project.desc ?? project.description ?? "") + " " +
-            (project.engine || "") + " " +
-            (project.category || "")
-        ).toLowerCase();
+    let projects = state.projects.filter(project => {
+        const text = (project.name + " " + project.desc + " " + project.engine + " " + project.category).toLowerCase();
         return text.includes(search) && (filter === "all" || project.category === filter);
     });
 
@@ -3511,19 +3512,13 @@ function renderProjects() {
     document.getElementById("statUsers").textContent = state.users.length;
 }
 
-async function downloadProject(id) {
+function downloadProject(id) {
     const project = state.projects.find(item => item.id === id);
     if (!project) return;
-    try {
-        await api("/download", {
-            method: "POST",
-            body: JSON.stringify({ id })
-        });
-        await refreshState(false);
-        toast("Proje açıldı/indiriliyor 📥");
-    } catch (err) {
-        toast(err.message);
-    }
+    project.downloads = Number(project.downloads || 0) + 1;
+    state.downloads = Number(state.downloads || 0) + 1;
+    save();
+    renderAll();
 }
 
 function renderLeaderboard() {
@@ -3575,18 +3570,11 @@ function renderPoll() {
     `).join("");
 }
 
-async function votePoll(index) {
+function votePoll(index) {
     if (!state.user) return toast("Oy vermek için giriş yap.");
-    try {
-        await api("/vote", {
-            method: "POST",
-            body: JSON.stringify({ index })
-        });
-        await refreshState(false);
-        toast("Oyun kaydedildi 🗳️");
-    } catch (err) {
-        toast(err.message);
-    }
+    state.poll.options[index].votes++;
+    save();
+    renderPoll();
 }
 
 function renderAnnouncement() {
@@ -3678,7 +3666,7 @@ function renderAdmin() {
     `;
 }
 
-async function adminAddProject() {
+function adminAddProject() {
     const name = document.getElementById("adminProjectName").value.trim();
     const engine = document.getElementById("adminProjectEngine").value.trim();
     const file = document.getElementById("adminProjectFile").value.trim();
@@ -3687,19 +3675,22 @@ async function adminAddProject() {
 
     if (!name || !engine || !desc) return toast("Lütfen adı, motoru ve açıklamayı doldurun.");
 
-    try {
-        await api("/admin/project", {
-            method: "POST",
-            body: JSON.stringify({ name, engine, file, playType, desc })
-        });
-        await refreshState(false);
-        document.getElementById("adminProjectName").value = "";
-        document.getElementById("adminProjectFile").value = "";
-        document.getElementById("adminProjectDescription").value = "";
-        toast("Proje başarıyla eklendi 🎉");
-    } catch (err) {
-        toast(err.message);
-    }
+    state.projects.unshift({
+        id: "p_" + Date.now(),
+        name,
+        engine,
+        desc,
+        playType,
+        category: "game",
+        version: "1.0",
+        rating: 5.0,
+        downloads: 0,
+        file
+    });
+
+    save();
+    renderAll();
+    toast("Proje başarıyla eklendi 🎉");
 }
 
 function adminDeleteProject(id) {
@@ -3711,51 +3702,50 @@ function adminDeleteProject(id) {
     toast("Proje silindi 🗑️");
 }
 
-async function logout() {
-    try { await api("/auth/logout", { method: "POST" }); } catch (_) {}
+function logout() {
     state.user = null;
+    save();
     renderAll();
     toast("Çıkış yapıldı.");
 }
 
-async function claimDailyReward() {
+function claimDailyReward() {
     if (!state.user) return openModal("loginModal");
-    try {
-        await api("/daily", { method: "POST" });
-        await refreshState(false);
-        toast("+100 Coin +50 XP 🎁");
-    } catch (err) {
-        toast(err.message);
-    }
+    state.user.coins += 100;
+    state.user.xp += 50;
+    save();
+    renderAll();
+    toast("+100 Coin +50 XP 🎁");
 }
 
 function bindCoreButtons() {
-    const loginButton = document.getElementById("loginButton");
     const loginSubmit = document.getElementById("loginSubmit");
     const registerSubmit = document.getElementById("registerSubmit");
 
-    if (loginButton) loginButton.onclick = () => openModal("loginModal");
-
-    if (loginSubmit) loginSubmit.onclick = async function() {
+    if (loginSubmit) loginSubmit.onclick = function() {
         const email = document.getElementById("loginEmail").value.trim().toLowerCase();
         const password = document.getElementById("loginPassword").value;
         if (!email || !password) return toast("E-posta ve şifre gerekli.");
 
-        try {
-            const data = await api("/auth/login", {
-                method: "POST",
-                body: JSON.stringify({ email, password })
-            });
-            state.user = data.user;
+        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            state.user = { username: "m53g_admin", displayName: "M53G Admin", email: ADMIN_EMAIL, password: ADMIN_PASSWORD, xp: 9999, coins: 99999, downloads: 0, verified: true, admin: true };
+            save();
             closeModal("loginModal");
-            await refreshState(false);
-            toast("Giriş başarılı 👋");
-        } catch (err) {
-            toast(err.message);
+            renderAll();
+            return toast("Admin girişi başarılı 👑");
         }
+
+        const user = state.users.find(item => item.email.toLowerCase() === email && item.password === password);
+        if (!user) return toast("E-posta veya şifre hatalı.");
+
+        state.user = { ...user, admin: false };
+        save();
+        closeModal("loginModal");
+        renderAll();
+        toast("Giriş başarılı 👋");
     };
 
-    if (registerSubmit) registerSubmit.onclick = async function() {
+    if (registerSubmit) registerSubmit.onclick = function() {
         const username = document.getElementById("registerUsername").value.trim();
         const email = document.getElementById("registerEmail").value.trim().toLowerCase();
         const password = document.getElementById("registerPassword").value;
@@ -3764,153 +3754,17 @@ function bindCoreButtons() {
         if (username.length < 3) return toast("Kullanıcı adı en az 3 karakter olmalı.");
         if (password.length < 8) return toast("Şifre en az 8 karakter olmalı.");
         if (!email.includes("@")) return toast("Geçerli bir e-posta gir.");
+        if (state.users.some(item => item.username.toLowerCase() === username.toLowerCase())) return toast("Bu kullanıcı adı zaten kullanılıyor.");
+        if (state.users.some(item => item.email.toLowerCase() === email)) return toast("Bu e-posta zaten kayıtlı.");
 
-        try {
-            const data = await api("/auth/register", {
-                method: "POST",
-                body: JSON.stringify({ username, email, password })
-            });
-            state.user = data.user;
-            closeModal("registerModal");
-            await refreshState(false);
-            toast("Hesap oluşturuldu 🎉");
-        } catch (err) {
-            toast(err.message);
-        }
+        const user = { username, displayName: username, email, password, xp: 0, coins: 500, downloads: 0, verified: true };
+        state.users.push(user);
+        state.user = { ...user, admin: false };
+        save();
+        closeModal("registerModal");
+        renderAll();
+        toast("Hesap oluşturuldu 🎉");
     };
-}
-
-function bindUIButtons() {
-    const menuButton = document.getElementById("menuButton");
-    const navLinks = document.getElementById("navLinks");
-    const notifyButton = document.getElementById("notifyButton");
-    const notificationPop = document.getElementById("notificationPop");
-    const closeNotification = document.getElementById("closeNotification");
-    const dailyButton = document.getElementById("dailyButton");
-    const projectSearch = document.getElementById("projectSearch");
-    const projectFilter = document.getElementById("projectFilter");
-    const projectSort = document.getElementById("projectSort");
-    const forgotSubmit = document.getElementById("forgotSubmit");
-    const settingsSaveButton = document.getElementById("settingsSaveButton");
-    const publishPollButton = document.getElementById("publishPollButton");
-    const publishAnnouncementButton = document.getElementById("publishAnnouncementButton");
-
-    if (menuButton && navLinks) {
-        menuButton.onclick = () => navLinks.classList.toggle("open");
-        navLinks.querySelectorAll("a").forEach(a => {
-            a.addEventListener("click", () => navLinks.classList.remove("open"));
-        });
-    }
-
-    if (notifyButton && notificationPop) {
-        notifyButton.onclick = (event) => {
-            event.stopPropagation();
-            notificationPop.classList.toggle("show");
-        };
-    }
-
-    if (closeNotification && notificationPop) {
-        closeNotification.onclick = () => notificationPop.classList.remove("show");
-    }
-
-    document.addEventListener("click", (event) => {
-        if (notificationPop && !notificationPop.contains(event.target) &&
-            event.target !== notifyButton) {
-            notificationPop.classList.remove("show");
-        }
-    });
-
-    if (dailyButton) {
-        dailyButton.onclick = claimDailyReward;
-    }
-
-    if (projectSearch) projectSearch.addEventListener("input", renderProjects);
-    if (projectFilter) projectFilter.addEventListener("change", renderProjects);
-    if (projectSort) projectSort.addEventListener("change", renderProjects);
-
-    if (forgotSubmit) {
-        forgotSubmit.onclick = () => {
-            const email = document.getElementById("forgotEmail").value.trim();
-            if (!email || !email.includes("@")) return toast("Geçerli bir e-posta gir.");
-            closeModal("forgotModal");
-            openModal("resetInfoModal");
-        };
-    }
-
-    if (settingsSaveButton) {
-        settingsSaveButton.onclick = async () => {
-            if (!state.user) return openModal("loginModal");
-
-            const name = document.getElementById("settingsName").value.trim();
-            const theme = document.getElementById("settingsTheme").value;
-
-            try {
-                await api("/profile", {
-                    method: "POST",
-                    body: JSON.stringify({ displayName: name, theme })
-                });
-                await refreshState(false);
-                closeModal("settingsModal");
-                toast("Ayarlar kaydedildi ✓");
-            } catch (err) {
-                toast(err.message);
-            }
-        };
-    }
-
-    if (publishPollButton) {
-        publishPollButton.onclick = async () => {
-            if (!isAdmin()) return toast("Admin erişimi gerekli.");
-            const question = document.getElementById("newPollQuestion").value.trim();
-            const raw = document.getElementById("newPollOptions").value.trim();
-            const options = raw.split(",").map(x => x.trim()).filter(Boolean);
-
-            if (!question || options.length < 2) return toast("Soru ve en az 2 seçenek gerekli.");
-
-            try {
-                await api("/admin/poll", {
-                    method: "POST",
-                    body: JSON.stringify({ question, options: options.slice(0, 6) })
-                });
-                await refreshState(false);
-                document.getElementById("newPollQuestion").value = "";
-                document.getElementById("newPollOptions").value = "";
-                toast("Anket yayınlandı 🗳️");
-            } catch (err) { toast(err.message); }
-        };
-    }
-
-    if (publishAnnouncementButton) {
-        publishAnnouncementButton.onclick = async () => {
-            if (!isAdmin()) return toast("Admin erişimi gerekli.");
-            const text = document.getElementById("announcementInput").value.trim();
-            if (!text) return toast("Duyuru metni boş olamaz.");
-
-            try {
-                await api("/admin/announcement", {
-                    method: "POST",
-                    body: JSON.stringify({ text })
-                });
-                await refreshState(false);
-                document.getElementById("announcementInput").value = "";
-                toast("Duyuru yayınlandı 📢");
-            } catch (err) { toast(err.message); }
-        };
-    }
-
-    // Modal arka planına tıklayınca kapat.
-    document.querySelectorAll(".modal").forEach(modal => {
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) modal.classList.remove("active");
-        });
-    });
-
-    // ESC ile açık modal/popover kapat.
-    document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        document.querySelectorAll(".modal.active").forEach(m => m.classList.remove("active"));
-        if (notificationPop) notificationPop.classList.remove("show");
-    });
 }
 
 function safeRenderAll() {
@@ -3923,9 +3777,8 @@ function safeRenderAll() {
 
 document.addEventListener("DOMContentLoaded", () => {
     bindCoreButtons();
-    bindUIButtons();
     safeRenderAll();
-    refreshState();
+    loadGlobalData();
 });
 
 </script>
